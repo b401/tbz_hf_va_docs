@@ -1,0 +1,116 @@
+= | Vorstudie: Anomalie Detection in Netzwerken
+Ives Schneider <ives.schneider@i-401.xyz>
+:doctype: pdf
+:author: Ives Schneider
+:subtitle: Anomalie Detection in Netzwerken
+:ntitle: | Vorstudie: {subtitle}
+:imagesdir: ./images
+:class: ITSE17a
+:pdf-stylesdir: ./resources/themes
+:pdf-fontsdir: ./resources/fonts
+:pdf-style: tbz
+:allow-uri-read:
+:sectnums:
+:toc:
+:toc-title: Index
+:title-page:
+
+<<<
+
+== Management Summary
+
+<<<
+
+== Projektinformationen
+
+=== Projektauftrag
+
+==== Projektbeschreibung
+
+=== Problemstellung
+
+=== Projektorganisation
+
+=== Projektzeitplan
+
+=== Ausgangslage
+
+<<<
+
+== Projektziele
+
+=== Muss Kriterien
+
+=== Kann Kriterien
+
+=== Zielgewichtung
+
+<<<
+
+== Analysetechnik
+
+=== Abgrenzung
+
+=== Systemgrenzen
+
+=== Analyse der Teilsysteme
+
+=== Umsysteme
+
+=== Schnittstellen
+
+=== Systemgrenzen
+
+<<<
+
+== Erhebung
+
+=== IST-Zustand
+
+=== Risiken
+
+<<< 
+
+== Würdigung
+
+=== IST-Zustand
+
+=== SWOT-Analyse
+
+<<<
+
+== Lösungsvarianten
+
+=== Log-Collector
+
+==== V0 | Null
+
+==== V1 | Graylog
+
+==== V2 | ELK-Stack
+
+
+=== Network Monitoring System
+
+==== V0 | Null
+
+==== V1 | PRTG
+
+==== V2 | Nagios
+
+<<<
+
+
+== Weiteres Vorgehen
+
+<<<
+
+== Freigabe
+
+<<<
+
+== Darstellungsverzeichnis
+
+<<<
+
+== Glossar
