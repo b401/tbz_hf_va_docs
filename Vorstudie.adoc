@@ -18,85 +18,250 @@ Ives Schneider <ives.schneider@i-401.xyz>
 <<<
 
 == Management Summary
+TODO
 
 <<<
 
 == Projektinformationen
 
+{nbsp} +
+{nbsp} +
+
+.*Auftraggeber*
+Technische Berufsschule Zürich +
+Sihlquai 101 +
+8090 Zürich +
+admin.hf@tbz.zh.ch
+
+{nbsp} +
+
+.*Projektleitung*
+Ives Schneider +
+Binzstrasse 19 +
+8712 Stäfa +
+ives.schneider@i-401.xyz
+
+{nbsp} +
+
+.*Experte*
+Marco Sieber +
+marco.sieber@tbz.ch
+
+{nbsp} +
+
+.*Studiengang*
+IT Service Engineer HF
+
+.*Klasse*
+ITSE17a
+
+<<<
+
 === Projektauftrag
 
 ==== Projektbeschreibung
+Basierend auf dem Netzwerk der TBZ HF soll eine Lösung zur Anomalie Detection evaluiert werden und in einem POC aufgebaut und entsprechend dokumentiert werden (inkl. Betriebsdokumentationen). +
+Die Lösung soll die Fähigkeit bieten, unautorisierte Aktivitäten im Netzwerk erkennen zu können.
 
-=== Problemstellung
+==== Problemstellung
+Netzwerkanomalien können weitreichende folgen haben. Angefangen von kleineren Paketverlusten, bis hin zum Ausfall ganzer Komponenten. +
+Die Erkennung solcher Anomalien ist meist mühselig und schwierig und kann unter Umständen mehrere Ressourcen aufbrauchen bis der Standard wiederhergestellt werden kann.
 
-=== Projektorganisation
+==== Projektorganisation
 
-=== Projektzeitplan
+.Projekt Mitarbeiter
 
-=== Ausgangslage
+image::organigram.png[Projekt Mitarbeiter,align="center",width=400px]
+
+<<<
+
+==== Projektzeitplan
+
+TODO
+
+<<<
+
+==== Ausgangslage
+
+TODO
 
 <<<
 
 == Projektziele
 
+Die Anforderungen sollen die nötigen Funktionen erfüllen, um eine gute Übersicht über das bestehende Netzwerk aufzuzeigen, Anomalien erkennen und deuten zu könenn.
+
 === Muss Kriterien
+
+* Baseline muss umfänglich ersichtlich sein
+** _Es muss eine grundlegende Analyse des normalen Netzwerkverkehrs erstellt werden._
+* Lösung soll Modular sein
+** _Die Lösung soll mit mehreren NMS sowie Switches arbeiten können._
+** _Falls ein "Modul" nicht erwünscht sein sollte, kann es deaktiviert werden._
+* Scaleability soll vorhanden sein
+** _Es soll die Möglichkeit bieten mehrere Log-Collectoren anzuschliessen._
+* OpenSource Lösung
+** _Der Sourcecode soll für Erweiterungen veröffentlicht werden._
+* Betriebsdokumentation
+** _Der Betrieb kann klar anhand einer Dokumentation nachvollzogen und nachgestellt werden._
+* Installationsdokumentation
+** _Es ist eine Installationsdokumentation vorhanden, um Installationen ohne Experten nachzustellen._
+* Alerts müssen gemeldet werden
+** _Anomalien werden via Mail an die zuständigen Administratoren gemeldet._
+* Web oder CLI Interface
+** _Es ist ein Web und/oder CLI Interface vorhanden um die Applikation zu managen._
 
 === Kann Kriterien
 
-=== Zielgewichtung
+* Push Benachrichtigungen
+** _Alerts können via Push notification abgesendet/empfangen werden._
+* SSO Authentifizierung
+** _Single-Sign-On Anbindung an bestehende SSO Lösungen._
+* Multiarch
+** _Die Lösung soll sowohl unter x86 sowie x86_64 laufen._
+* OS Independent
+** _Die Lösung soll keine Abhängigkeit des unterliegenden Betriebssystem haben._
+
+=== Bewertungskriterien
+
+* API
+** _Die Applikation besitzt ein ausführliches und umfassendes API._
+* Dokumentation
+** _API sowie andere Konfigurationsmöglichkeiten sind ausführlich dokumentiert._
+* Performance
+** _Ein single-node muss auch bei höheren Lasten noch immer eine gute Performance liefern._
+* Skalierbarkeit
+** _Clusterfunktionalität der Applikation._
+* Lizenz
+** _Wie offen ist die Lizenz, kann die Applikation geändert werden?_
+* Ausgereift
+** Wie ausgereift ist die Applikation?
+* Aktivität
+** Wie aktiv wird an der Applikation weiterentwickelt?
 
 <<<
 
 == Analysetechnik
 
 === Abgrenzung
+Um Anomalien frühzeitig und um möglichst "False Positives" zu vermeiden, ist es unabdingbar, möglichst viele Netzwerkgeräte miteinzubeziehen. Prozesse sowie bereits vorhandene Richtlinien werden durch das Projekt nicht abgeändert, sondern eventuell noch durch neue Prozesse ergänzt.
 
 === Systemgrenzen
+image::ei.png[Systemgrenzen,640,480]
 
 === Analyse der Teilsysteme
 
+.**Clients**
+TODO
+
+.**Server**
+TODO
+
+.**Switches**
+TODO
+
+.**Firewall**
+TODO
+
+.**NMS**
+TODO
+
+.**AccessPoints**
+TODO
+
+.**Router**
+TODO
+
+.**Logs**
+TODO
+
 === Umsysteme
 
+.**Prozess**
+TODO
+
+.**Richtlinien**
+TODO
+
 === Schnittstellen
+TODO
 
 === Systemgrenzen
+TODO
 
 <<<
 
 == Erhebung
 
 === IST-Zustand
+Das POC LAN https://gitlab.com/nliechti/up2/wikis/home[@Gitlab] besitzt ein NMS (Network Monitoring System) welches bereits rudimentär den Status des Netzwerkes überwacht (Throughput). Anomalien können allerdings nicht näher erkannt werden, noch kann mit Genauigkeit gesagt werden, wo die Anomalie aufgetreten ist.
+
+TODO
 
 === Risiken
+TODO
 
-<<< 
+==== Risikoanalyse
+
+<<<
 
 == Würdigung
 
 === IST-Zustand
+Die Infrastruktur bietet eine Basis, um Ausfälle einzelner Dienste zu sehen und die Administratoren zu informieren. Paketverlust oder andere Anomalien können zzt. noch nicht erkannt werden.
+Da bereits Switches, welche via SNMP überwacht werden, kann darauf aufgebaut werden, um weitere Informationen zu bekommen.
 
 === SWOT-Analyse
+TODO
+
+==== Rahmenbedingungen
+TODO
+
+==== Stärken/Schwächen Profil
+TODO
+
+==== Matrix
+TODO
 
 <<<
 
 == Lösungsvarianten
+TODO
 
 === Log-Collector
+TODO
 
 ==== V0 | Null
+TODO
 
 ==== V1 | Graylog
+TODO
 
 ==== V2 | ELK-Stack
+TODO
+
+
+==== SW-Bewertung
+
+==== V-Bewertung
 
 
 === Network Monitoring System
+TODO
 
 ==== V0 | Null
+TODO
 
 ==== V1 | PRTG
+TODO
 
 ==== V2 | Nagios
+TODO
+
+==== SW-Bewertung
+
+==== V-Bewertung
+
 
 <<<
 
