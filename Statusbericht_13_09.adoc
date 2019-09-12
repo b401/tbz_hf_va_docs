@@ -1,0 +1,50 @@
+= Anomalie Detection in Netzwerken: Statusbericht Nr.1 
+Ives Schneider <ives.schneider@i-401.xyz>
+:doctype: pdf
+:author: Ives Schneider
+:subtitle: Statusbericht 13.09.2019
+:ntitle: Vorstudie: {subtitle}
+:imagesdir: ./images
+:class: ITSE17a
+:pdf-stylesdir: ./resources/themes
+:pdf-fontsdir: ./resources/fonts
+:pdf-style: tbz
+:allow-uri-read:
+:sectnums:
+:title-page:
+
+<<<
+
+== Projektarbeit
+Am 02.09.2019 sendete ich ihnen den erarbeiteten Projektantrag. Von dem ich allerdings noch keine Rückmeldung erhalten habe. 
+Daher basierte ich meine nachträglichen Arbeiten, auf dem Antrag beschriebenen Umgebungen. +
+Seit unserem initialem Gespräch, habe ich angefangen eine https://github.com/b401/tbz_hf_va_docs[Vorstudie]  durchzuführen, um in der POC Umgebung noch einen fehlenden Log-Collector, sowie ein NMS hinzuzufügen. +
+Des Weiteren erstellte ich eine Risiko und SWOT-Analyse, um die Umgebung, momentan sowie in Zukunft besser einschätzen zu können. +
+
+Viel Zeit floss in die Evaluation der Log-Collector Lösung. +
+
+.*Angeschaute Log-Collectors*
+
+- Graylog
+- ELK-Stack
+- Splunk
+
+Für jede Lösung wurde eine VM erstellt, um sie genauer anzuschauen und festzustellen, ob die APIs die gewünschte Funktionalitäten unterstützen. 
+Für die Testserver wurde folgende Konfiguration verwendet: +
+
+.*Hardware Konfiguration*
+
+- CPU: 2 Core
+- RAM: 4 GB
+- Speicher: 16GB
+
+Einige Probleme gab es mit dem Setup der ELK-Stack Umgebung, da meine Testclients eine andere Beats-Version benötigten um Logs weiterzuleiten. +
+Bei Graylog und Splunk hingegen lief alles ohne Probleme ab. 
+
+== Reflexion
+Ich habe das Gefühl, dass ich in dieser Projektphase weniger Zeit mit Details verbringen und nur grob Informationen Sammeln. Die meiste Zeit wird schlussendlich darin liegen, die Software zu entwickeln, welche mit den restlichen Systemen kommuniziert. Ob nun Splunk, Graylog oder ELK-Stack verwendet wird, ist nicht extrem von belangen (Alle besitzen dieselben APIs). Daher werde ich bei der NMS Evaluation weniger auf die Details gehen.
+
+== Zukünftig
+Die Vorstudie hat noch eine unfertige Punkte, welche noch nachgeführt werden müssen. +
+Das Ziel ist es, die Vorstudie zumindest vorzeige fähig bis Montag (16.09.2019) fertig zu haben und danach mit der Hauptstudie / dem Programmieren anzufangen.
+
