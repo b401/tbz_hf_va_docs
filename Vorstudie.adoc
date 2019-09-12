@@ -1,9 +1,9 @@
-= | Vorstudie: Anomalie Detection in Netzwerken
+= Vorstudie: Anomalie Detection in Netzwerken
 Ives Schneider <ives.schneider@i-401.xyz>
 :doctype: pdf
 :author: Ives Schneider
 :subtitle: Anomalie Detection in Netzwerken
-:ntitle: | Vorstudie: {subtitle}
+:ntitle: Vorstudie: {subtitle}
 :imagesdir: ./images
 :class: ITSE17a
 :pdf-stylesdir: ./resources/themes
@@ -122,6 +122,8 @@ Die Anforderungen sollen die nötigen Funktionen erfüllen, um eine gute Übersi
 * OS Independent
 ** _Die Lösung soll keine Abhängigkeit des unterliegenden Betriebssystem haben._
 
+<<<
+
 === Bewertungskriterien
 
 * API
@@ -139,6 +141,12 @@ Die Anforderungen sollen die nötigen Funktionen erfüllen, um eine gute Übersi
 * Aktivität
 ** Wie aktiv wird an der Applikation weiterentwickelt?
 
+=== Gewichtung
+
+Die Gewichtung kann für beide evaluierten Software Lösungen eingesetzt werden.
+
+image::praeferenzmatrix.png[Präferenzmatrix,640,480]
+
 <<<
 
 == Analysetechnik
@@ -149,45 +157,78 @@ Um Anomalien frühzeitig und um möglichst "False Positives" zu vermeiden, ist e
 === Systemgrenzen
 image::ei.png[Systemgrenzen,640,480]
 
+==== Einflussgrössen / Restriktionen
+
+Da das gesamte Netzwerk überwacht und Daten analysiert werden müssen, ist es wichtig, dass das Projekt transparent und mit den gegebenen Datenschutzrichtlinien im Einklang durchgeführt wird. +
+Grundsätzlich sollen keine bestehenden Arbeitsabläufe geändert oder gefährdet werden.
+
+<<<
+
 === Analyse der Teilsysteme
 
-.**Clients**
-TODO
+==== Clients
+Vorhandene Clients müssen kategorisiert und eingestuft werden. +
+Sobald ein Client hinzukommen oder entfernt werde sollte, muss eine Reaktion darauf ausgelöst werden und die Änderung in der Baseline vermerkt werden.
 
-.**Server**
-TODO
+==== Server
+Unbekannte Server und Services müssen gemeldet und eingestuft werden. +
+Ebenfalls sollten unbekannte Server direkt eine Reaktion auslösen.
 
-.**Switches**
-TODO
+==== Switches
+Switches werden anhand von SNMP überwacht. Sollte sich ein Wert ausserhalb der Baseline befinden, muss eine Reaktion darauf erfolgen.
 
-.**Firewall**
-TODO
+==== Firewall
+Firewall werden mithilfe ihren APIs abgefragt. Falls kein API vorhanden sein sollte, wird auf SNMP zurückgegriffen.
 
-.**NMS**
-TODO
+==== NMS
+Das NMS wird als einer der Hauptquellen für Informationen über das momentane Verhalten des Netzwerkes zu Rate gezogen. +
+Ebenfalls wird das NMS passiv sowie pro-aktiv in die Informationssuche miteingschlossen.
 
-.**AccessPoints**
-TODO
+==== AccessPoints
+Es soll stetts eine Übersicht über die Anzahl und Identifikationen der verbundenen Clients vorhanden sein.
 
-.**Router**
-TODO
+==== Router
+Router werden anhand ARP sowie SNMP in die Überwachung miteingebunden.
 
-.**Logs**
-TODO
+==== Logs
+Es wird ein Log-Collector evaluiert um die gesamten Logs zentral zu speichern und abfragen zu können.
+
+
+==== Reaktion
+
+Da Abweichungen in der Baseline ein grosses Gefahrenpotential besitzen, muss klar definiert werden, wie auf eine Abweichung zu reagieren ist. +
+{nbsp} +
+Natürlich beinhaltet dieser Flowchart nur die grundlegendsten Aktivitäten. Genaueres vorgehen muss nach der Evaluation definiert werden.
+
+image::flowchart.png[Flowchart einer Reaktion,align="center"]
+
+<<< 
 
 === Umsysteme
 
-.**Prozess**
-TODO
+* **Prozess**
+** Prozesse müssen respektiert werden.
+** Vorhandene Prozesse welche im Netzwerk aktiv sind, sollen weder beeinflusst noch abgeändert werden. 
 
-.**Richtlinien**
-TODO
+* **Richtlinien**
+** Implementierte Richtlinien sollen weiterhin respektiert und befolgt werden.
+** Müssen eventuell erweitert werden
 
 === Schnittstellen
-TODO
+
+* Entscheidung und Alayse bei gemeldeten Analysen
+* Kommunikation bei true positiv alerts
+* Aktive anpassung der Baseline
+* Kommunikation bei Änderungen im Netzwerk
+
 
 === Systemgrenzen
-TODO
+
+* Analyse betrifft nur das PoC LAN und darf nicht auf das produktive LAN ausgeweitet werden.
+
+
+=== Gemeinsamkeiten
+Alle Untersysteme müssen einen gewissen Grad an Compliance mit den gegebenen IST-Zuständen aufweisen können. Dies bedeutet, dass bei bereits eingesetzter Software/Hardware APIs zur verfügung stehen müssen, um effektiv Anomalien erkennen zu können.
 
 <<<
 
@@ -196,12 +237,28 @@ TODO
 === IST-Zustand
 Das POC LAN https://gitlab.com/nliechti/up2/wikis/home[@Gitlab] besitzt ein NMS (Network Monitoring System) welches bereits rudimentär den Status des Netzwerkes überwacht (Throughput). Anomalien können allerdings nicht näher erkannt werden, noch kann mit Genauigkeit gesagt werden, wo die Anomalie aufgetreten ist.
 
-TODO
+=== Quantitative Methode
+
+==== Beobachtungen, Messungen
+
+Um einen besseren Überblick über die vorhanden Infrastruktur zu bekommen, wird mithilfe einigen Tools Messungen und Beobachtungen anhand des POC Lans durchgeführt.
+Die genaue Analyse der Beobachtungen wird in der Hauptstudie genauer analysiert.
+
+// TODO
+
+<<<
 
 === Risiken
-TODO
+* [R1] "Shadow IT" führt zu Fehlkonfigurationen.
+* [R2] Lateral movement wird nicht erkannt.
+* [R3] Infektionen bleiben über längeren Zeitraum unerkannt.
+* [R4] Rouge Systeme können im Netzwerk schaden anrichten.
+* [R5] APT deployt einen persistent backdoor.
+* [R6] Zugangsdaten und Informationen können geleakt werden.
 
 ==== Risikoanalyse
+
+image::risikomatrix.png[Risikomatrix,640]
 
 <<<
 
@@ -209,41 +266,205 @@ TODO
 
 === IST-Zustand
 Die Infrastruktur bietet eine Basis, um Ausfälle einzelner Dienste zu sehen und die Administratoren zu informieren. Paketverlust oder andere Anomalien können zzt. noch nicht erkannt werden.
-Da bereits Switches, welche via SNMP überwacht werden, kann darauf aufgebaut werden, um weitere Informationen zu bekommen.
+Da bereits Switches, welche via SNMP überwacht werden, vorhanden sind kann darauf aufgebaut werden weitere Informationen zu bekommen.
 
 === SWOT-Analyse
-TODO
+Die SWOT-Analyse soll Aufsicht über den momentanen Zustand geben. +
+Mithilfe der Matrix wird erhofft zukünftige Chancen sowie momentane Schwächen besser feststellen zu können.
 
 ==== Rahmenbedingungen
-TODO
+* Firma überwachen nur ihren Perimeter, nicht aber innerhalb der Segmente.
+* Durchschnittlicher lifecycle eines Databreaches beträgt 279 Tage https://newsroom.ibm.com/2019-07-23-IBM-Study-Shows-Data-Breach-Costs-on-the-Rise-Financial-Impact-Felt-for-Years#assets_all[IBM]
+* Erst nach 207 Tagen, wird im Durchschnitt ein Einbruch gefunden.
+* Firmen setzen häufig auf AV/Endpoint Security und Firewalls. Allerdings nicht auf HIDS/NIDS
 
 ==== Stärken/Schwächen Profil
-TODO
+
+.*Stärken*
+Auch wenn innerhalb des POC LANs kein Mechanismus vorhanden ist um Anomalien zu erkennen, sind dennoch die rudimentären Anforderungen vorhanden um solch ein System einzurichten. Ebenfalls besteht bereits eine Perimeter-Überwachung welche die wichtigsten Dienste, welche ein fehlerfreies arbeiten garantiert. Da der grösste Teil der Infrastruktur auf Open Source basiert, ist es ebenfalls ein leichtes, Module zu erweitern und anzupassen.
+
+.*Schwächen*
+Die Umgebung an sich besitzt ein unzureichendes Monitoring. Anomalien können nur schlecht oder gar nicht erkannt werden. Im Falle einer entdeckten Anomalie, kann aufgrund fehlender zentralen Loggings nicht garantiert werden, dass der Verursacher gefunden werden kan.
+
+.*Chancen*
+Die Software für die Anomalie Erkennung soll einen Mehrwert in der gesamten Struktur des Netzwerkes erbringen. Allgemeine Risiken und Gefahren können durch ein frühzeitiges erkennen eingedämmt oder direkt unterbunden werden. Durch den Einsatz eines Log-Collectors und eines NMS, können Anhaltspunkte zur Überwachung des Netzwerks gegeben werden.
+
+.*Gefahren*
+Durch die erhöhte Überwachung des Netzerkes könnte es zu Datenschutz problemen führen. Sowie erhöhter Administrativer Aufwand die Baseline zu wahren.
 
 ==== Matrix
-TODO
+
+image::swot.png[SWOT-Analyse,align="center"]
 
 <<<
 
 == Lösungsvarianten
-TODO
+Um das bereits vorhanden POC LAN auszubauen und mit einem Anomalie Erkennungsmodul auzustatten, ist es Notwendig, einen zentralen Log-Collector, sowie ein richtig konfiguriertes NMS zu haben. Anhand der definierten Kriterien und Gewichtungen werden die Lösungen gegenübergestellt.
 
 === Log-Collector
-TODO
+[quote, techtarget.com]
+_____
+Log management is the collective processes and policies used to administer and facilitate the generation, transmission, analysis, storage, archiving and ultimate disposal of the large volumes of log data...
+_____
+Zentrales logging ist in Hinsicht auf ein Anomalie Erkennungstool beinahe unumgänglich. +
+Anhand der Logs können folgende Dinge erkannt werden: +
+
+- Zugriffsverletzung
+- Passwortänderungen
+- Neustarts
+- Änderungen von Konfigurationen
+
+Da beinahe (eine Ausnahme) nur GNU/Linux Server im Einsatz sind, muss der Log-Collector Syslog unterstützen um die Logs sammeln zu können. +
+Um die Software besser bewerten zu können, wird jeweils eine virtuelle Maschine mit einer Instanz der Software installiert und analysiert.
+
+image::monitor.png[Log-Management,640,400]
 
 ==== V0 | Null
-TODO
+Logs werden weiterhin ohne zentralen Server gemanagt. Dies würde dazu führen, dass Logs einzeln von den Devices abgeholt werden müssten.
+
+===== Keypunkte
+
+* Geringster initialer Aufwand.
+* Höherer Aufwand in der Programmierung.
+* Erhöht die Gefahr, Anomalien nicht zu erkennen.
+
+===== Vorteile
+
+.*Geringster initialer Aufwand*
+Ohne Log-Collector müsste das Syslog bei keinem Server konfiguriert werden. Somit könnte man initial den Aufwand minimieren und die Zeit in andere Punkte investieren.
+
+===== Nachteile
+
+.*Höherer Programmieraufwand*
+Die Logs können nicht mehr von einer zentralen Stelle abgefragt werden. Dies würde dazu führen, dass man eine Liste von vorhandenen Servern führen müsste und diese einzeln jeweils über ihren momentan Stand abfragen.
+
+.*Anomalien nicht erkennen*
+Zentrales Log Management erhöht die durchsicht in einem Netzwerk immens. Ohne Log-Collector können einzelne Server/Dienste vergessen gehen oder nicht abgefragt werden.
+
+<<<
 
 ==== V1 | Graylog
-TODO
+
+[cols=".<,>",grid="None",frame="None"]
+|====
+|Graylog ist nicht nur eine Log Management Lösung. Sondern beinhaltet ein komplettes SIEM. Der unterliegende Storage welcher auf Elasticsearch basiert, ermöglicht eine schnelle Suche der Dateien. Besonders interessant ist das REST API und ihre OpenSource Lizenz welche Graylog kostengünstig und erweiterbar macht.
+a|image:graylog.jpg[width="320px"]
+|====
+
+===== Keypunkte
+
+* Open Source und Enterprise Model
+* Free (Enterprise bis 5GB/Day)
+* RESTful
+* _all-or-nothing_ solution
+* Limited scope
+
+===== Vorteile
+
+.*Free*
+Das Open Source sowie Enterprise Model sind von interesse wenn es darum geht, Logs zu collecten und abzuarbeiten. Falls es zu einer Entscheidung zu Graylog kommen sollte, wird allerdings auf das Enterprise Model verzichtet, da es sich nur um ein POC handelt.
+
+.*RESTful*
+Das integrierte REST API ermöglicht es, selbst Wrapper für die Applikation zu schreiben um schnell an die gewünschten Informationen zu kommen.
+
+===== Nachteile
+
+.*All-Or-Nothing*
+Graylog kann eines gut - Logs managen. +
+Andere Lösungen bieten die Funktionalität direkt Graphen aus den Logs herauszuschreiben. Graylog hingegen benötigt dafür weitere Tools (Graphana).
+
+.*Limited scope*
+Wie oben genannt, bietet Graylog die möglichkeit nicht an, Logs in andere Daten umzuwandeln um sie Beispielsweise in den KPIs anzuzeigen.
+
+<<<
+
 
 ==== V2 | ELK-Stack
-TODO
+[cols=".<,>",grid="None",frame="None"]
+|====
+| Elasticsearch ist einer der Platzhirsche in Datenverarbeitung und so ziemlich alles, was mit Bigdata und Datenanalyse zu tun hat. Durch Kibana besitzt es eine relativ gute Weboberflächte und mit Logstash besitz es die Möglichkeit Logs zu empfangen und zu bearbeiten.
+a|image:elk.png[width="320px"]
+|====
 
+===== Keypunkte
 
-==== SW-Bewertung
+* Vollumfänglich
+* Clients senden via Beats Logs zum Server
+* RESTful
+* Hohe Lernkurve
+* Hohe Wartungskosten
+* Logtransformierung
+* Keine Authentifizierung in der Free-Version
+* Aufteilung via Shards
+
+===== Vorteile
+.*Vollumfänglich*
+Der ELK-Stack beinhaltet alles was man zum Log Managen braucht. Via Beats können Logs von Windows sowie Linux Client empfangen und transformiert werden. Kibana ermöglicht das Anzeigen der Logs in Realtime direkt in einer Weboberfläche, und Elasticsearch bietet eine vollumfängliche analytische Umgebung um Logs zu analysieren an.
+
+.*Beats*
+Dadurch das eine Software genutzt wird um Logs aus den Clients zum Server zu senden (würde auch via Syslog gehen), können zusätzliche Informationen angehängt werden. Zum Beispiel ermöglicht dies dem Server mitzuteilen, welche Beats Version momentan auf dem Client läuft.
+
+<<< 
+
+.*RESTful*
+Das integrierte REST API ermöglicht es, selbst Wrapper für die Applikation zu schreiben um schnell an die gewünschten Informationen zu kommen.
+
+===== Nachteile
+.*Hohe Wartungskosten* 
+Die Erfahrung mit ELK zeigt, dass die Kosten der Wartung des Servers ziemlich hoch sind (Zeitkosten). Falls ein Shard failen sollte, ist eine rückführung der korruptierten Logs extrem aufwändig bis beinahe unmöglich. Dazu kommt, dass Beats nicht mit allen Logtypen umgehen kann und unter gewissen umständen eigene Parser geschrieben werden müssen.
+
+.*Hohe Lernkurve*
+Die Administration eines ELK-Stack ist nicht einfacht. Bereits das Verwalten von mehreren Nodes ist extrem Zeitaufwändig, geschweige von den Konfigurationsmöglichkeiten welche Logstash mit sich bringt.
+
+.*Keine Authentifizierung*
+Die Community Version des ELK-Stacks (Kibana) bietet keine Authentifizierung an. Das heisst, das zusätzlich ein Apache2/nginx oder ein reverse Proxy vorgeschalten werden müsste, welcher die Authentifizierung übernimmt.
+
+<<<
+
+==== V3 | Splunk
+[cols=".^,^",grid="None",frame="None"]
+|====
+| Splunk sollte jedem welcher sich mit Log Management etwas beschäftigt hat ein Begriff sein. Besonders interessant ist Splunk Enterprise Security (ES) welches als SIEM von Splunk selbst dient. Es bietet eine weite Modulare erweiterbarkeit durch Community erstellte Apps dar.
+a|image:splunk.png[width="320px"]
+|====
+
+===== Keypunkte
+
+* Eigene Query Sprache (SPL)
+* Standard APIs
+* Easy Setup
+* Monitoring und Alerting
+* Kein Java
+* Properitär
+
+===== Vorteile
+.*Standard APIs*
+Wie bei den restlichen Tools wird ein RESTful sowie HTTP API verwendet.
+
+.*Monitoring und Alerting*
+Splunk besitzt bereits selbst die Funktionalität, Daten zu monitoren und bei Sonderfällen die Administratoren zu informieren.
+
+.*Easy Setup*
+Das Setup benötigt nur einen Splunk Server und evtl. einen Splunk Forwarder. Zusätzliche Komponenten wie bei den anderen Lösungen werden nicht benötigt.
+
+.*Kein Java*
+Es lebt sich leichter mit Server welche kein Java benötigten. Splunk ist in C++ / Python geschrieben und benötigt dadurch keine JVM oder zusätzliche Software.
+
+===== Nachteile
+
+.*Properitär*
+Splunk ist nicht Open Source. Dies behält den Nachteil, dass man nicht sicher gehen kann, was die Software genau unterliegend macht. Im Fehlerfall, kann nicht direkt im Code nachgeschaut werden, was nun schief gelaufen ist.
 
 ==== V-Bewertung
+
+image::nutzwert.png[Nutzwertanalyse]
+
+===== Analyse
+Grundsätzlich war es ein sehr enges Rennen. +
+Bei einem ELK-Stack ist die Aktivität etwas ein Problem. Viele Tools laufen nur mit älteren Versionen von Elasticsearch und sind daher auf bestimmte Konfigurationen angewiesen. +
+Graylog hingegen würde ich gerne anderswo nochmals testen. Grundsätzlich kann man allerdings sagen, das Splunk eines der weitverbreitesten und innovativsten Log Monitoring Managements ist. Daher viel die wahl u.a. der grossen Community und ausführliche Dokumentation auf Splunk.
+
+<<<
 
 
 === Network Monitoring System
