@@ -3,7 +3,7 @@ Ives Schneider <ives.schneider@i-401.xyz>
 :doctype: pdf
 :author: Ives Schneider
 :subtitle: Statusbericht 13.09.2019
-:ntitle: Vorstudie: {subtitle}
+:ntitle: Anomalie Detection in Netzwerken: {subtitle}
 :imagesdir: ./images
 :class: ITSE17a
 :pdf-stylesdir: ./resources/themes
@@ -16,9 +16,8 @@ Ives Schneider <ives.schneider@i-401.xyz>
 <<<
 
 == Projektarbeit
-Am 02.09.2019 sendete ich ihnen den erarbeiteten Projektantrag. Von dem ich allerdings noch keine Rückmeldung erhalten habe. 
-Daher basierte ich meine nachträglichen Arbeiten, auf dem Antrag beschriebenen Umgebungen. +
-Seit unserem initialem Gespräch, habe ich angefangen eine https://github.com/b401/tbz_hf_va_docs[Vorstudie]  durchzuführen, um in der POC Umgebung noch einen fehlenden Log-Collector, sowie ein NMS hinzuzufügen. +
+Am 02.09.2019 sendete ich ihnen den erarbeiteten Projektantrag. am 13.09.2019 bekam ich ihr Feedback und habe den Antrag dementsprechend angepasst. +
+Seit unserem initialem Gespräch, habe ich angefangen eine https://github.com/b401/tbz_hf_va_docs[Vorstudie] durchzuführen, um in der POC Umgebung noch einen fehlenden Log-Collector, sowie ein NMS zu evaluieren. +
 Des Weiteren erstellte ich eine Risiko und SWOT-Analyse, um die Umgebung, momentan sowie in Zukunft besser einschätzen zu können. +
 
 Viel Zeit floss in die Evaluation der Log-Collector Lösung. +
