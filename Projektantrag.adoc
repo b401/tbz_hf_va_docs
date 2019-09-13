@@ -164,8 +164,6 @@ Das Tool welches Informationen aus den verschiedenen Netzwerkdevices zieht um An
 
 <<<
 
-=== Projektzeitplan
-
 image::gantt_diagram.pdf[]
 
 <<<
