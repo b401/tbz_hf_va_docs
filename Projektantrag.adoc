@@ -1,8 +1,8 @@
-﻿= Anomalie Detection in Netzwerken
+﻿= Anomalie Detection in Netzwerken: Projektantrag
 Ives Schneider <ives.schneider@i-401.xyz>
 :doctype: pdf
 :author: Ives Schneider
-:ntitle: Anomalie Detection in Netzwerken
+:ntitle: Projektantrag
 :imagesdir: ./images
 :class: ITSE17a
 :pdf-stylesdir: ./resources/themes
@@ -76,65 +76,97 @@ image::ei.png[Systemgrenzen,640,480]
 
 <<<
 
-== Anforderungen und Kriterien
-Die Anforderungen sollen die nötigen Funktionen erfüllen, um eine gute Übersicht über das bestehende Netzwerk aufzuzeigen, Anomalien erkennen und deuten zu könenn.
+== Wirtschaftlichkeit
+Initial betrachtet, ist der Finanzielle nutzen eines Anomalie Detection Systems nicht direkt sichtbar. Allerdings muss dabei die Kosten eines erfolgreichen Angriffs in Augenschein genommen werden. 
 
-.*Anforderungen*
-* Baseline muss umfänglich ersichtlich sein
-** _Es muss eine grundlegende Analyse des normalen Netzwerkverkehrs erstellt werden._
-* Lösung soll Modular sein
-** _Die Lösung soll mit mehreren NMS sowie Switches arbeiten können._
-** _Falls ein "Modul" nicht erwünscht sein sollte, kann es deaktiviert werden._
-* Scaleability soll vorhanden sein
-** _Es soll die Möglichkeit bieten mehrere Log-Collectoren anzuschliessen._
-* OpenSource Lösung
-** _Der Sourcecode soll für Erweiterungen veröffentlicht werden._
-* Betriebsdokumentation
-** _Der Betrieb kann klar anhand einer Dokumentation nachvollzogen und nachgestellt werden._
-* Installationsdokumentation
-** _Es ist eine Installationsdokumentation vorhanden, um Installationen ohne Experten nachzustellen._
-* Alerts müssen gemeldet werden
-** _Anomalien werden via Mail an die zuständigen Administratoren gemeldet._
-* Web oder CLI Interface
-** _Es ist ein Web und/oder CLI Interface vorhanden um die Applikation zu managen._
+image::breach.jpg[Kosten eines Angriffs,align="center",width="550"]
 
-.*Kann Kriterien*
-* Push Benachrichtigungen
-** _Alerts können via Push notification abgesendet/empfangen werden._
-* SSO Authentifizierung
-** _Single-Sign-On Anbindung an bestehende SSO Lösungen._
-* Multiarch
-** _Die Lösung soll sowohl unter x86 sowie x86_64 laufen._
-* OS Independent
-** _Die Lösung soll keine Abhängigkeit des unterliegenden Betriebssystem haben._
+Natürlich ist dabei zu beachten, dass umso länger ein Angreifer im Netz ist, umso kostspieliger wird das entfernen der Spuren.
+
+Da die zu evaluierende Software unter Umständen gewisse Kosten nach sich ziehen könnte, wird in der Vorstudie genauer auf das Lizenzmodell eingegangen. Da es sich allerdings um ein POC handelt, kann grundsätzlich auf Community Versionen zurückgegriffen werden, welche in der Regel frei zur verfügung stehen. +
+Das Tool selbst soll inhouse entwickelt werden, daher fallen ausser Personenstunden keine zusätzlichen Kosten an. +
+
 
 <<<
 
-.*Bewertungskriterien*
-* API
-** _Die Applikation besitzt ein ausführliches und umfassendes API._
-* Dokumentation
-** _API sowie andere Konfigurationsmöglichkeiten sind ausführlich dokumentiert._
-* Performance
-** _Ein single-node muss auch bei höheren Lasten noch immer eine gute Performance liefern._
-* Skalierbarkeit
-** _Clusterfunktionalität der Applikation._
-* Lizenz
-** _Wie offen ist die Lizenz, kann die Applikation geändert werden?_
-* Ausgereift
-** Wie ausgereift ist die Applikation?
-* Aktivität
-** Wie aktiv wird an der Applikation weiterentwickelt?
+== Anforderungen und Kriterien
+
+=== Anforderungen
+* Anomalien werden am Ende schnell und nachvollziehbar aufgezeichnet und sind verfolgbar.
+* Die nicht vorhandene Baseline soll durch eine übersichtliche Grafik bis zum Ende des Projekts erstellt werden.
+* Das entwickelte Tool ist nach der Fertigstellung durch weitere Module ausbaufähig.
+* Am Ende des Projekts ist es möglich mehrere Log-Collectoren gleichzeitig zu überwachen.
+* Der Sourcecode wird während der Entwicklung offen gehandelt und steht dritten zur Verfügung.
+* Vollumfängliche Dokumentationen sind für die Wartung/Konfiguration am Ende des Projekts verfügbar.
+* Ein Systemadministrator ist am Ende des Projekts fähig, Installationen anhand einer Dokumentation selbst vorzunehmen.
+* Anomalien werden nach der Installation, direkt via Mail den zuständigen Administratoren gemeldet.
+* Das Tool kann nach der Installation durch ein Web/-CLI Interface direkt gemanagt werden.
+
+=== Kann Kriterien
+* Administratoren werden am Ende des Projekts über Push Benachrichtigungen über Anomalien informiert. 
+* Administratoren können sich via Single-Sign On Lösung am Tool authentifizieren, um Konfigurationen zu ändern.
+* Das Tool ist am Ende des Projekts auf mehreren Architekturen verfügbar.
+* Nach der Entwicklung setzt die Installation nicht auf ein bestimmtes OS, sondern ist auf mehreren betriebsfähig.
+
+
+=== Bewertungskriterien
+
+[cols=".<,<",border="none",frame="none"]
+|====
+| *API*
+| Die Applikation besitzt ein ausführliches und umfassendes API.
+| *Dokumentateion*
+| API sowie andere Konfigurationsmöglichkeiten sind ausführlich dokumentiert.
+| *Performance*
+| Ein single-node muss auch bei höheren Lasten noch immer eine gute Performance liefern.
+| *Skalierbarkeit* 
+| Clusterfunktionalität der Applikation.
+| *Lizenz* 
+| Wie offen ist die Lizenz, kann die Applikation geändert werden?
+|*Ausgereift* 
+| Wie ausgereift ist die Applikation?
+| *Aktivität* 
+| Wie aktiv wird an der Applikation weiterentwickelt?
+|====
+
+<<<
 
 == Vorgehenssystematik
 
 === Projektablauf
 Das Projekt wird in einer Mischung aus Wasserfall und Agiler Projektform ablaufen. +
-Dieses Dokument beinhaltet den Antrag darüber, die Vorstudie durchführen zu können. Es soll dazu dienen, die _Initiative_ *Projektphase* abzudecken. Die Planung (Vorstudie) wird danach gemäss Planungszyklus abgearbeitet um die aufgelisteten _Anforderungen_, sowie _Kann_ Kriterien abzudecken. Folglich wird auf die abgeschlossene Vorstudie wird mithilfe der getroffenen Entscheidungen eine Hauptstudie durchgeführt und die Systeme implementiert und dokumentiert werden.
+Dieses Dokument beinhaltet den Antrag darüber, die Vorstudie durchführen zu können. Es soll dazu dienen, die _Initiative_ *Projektphase* abzudecken. Die Planung (Vorstudie) wird danach gemäss Planungszyklus abgearbeitet um die aufgelisteten _Anforderungen_, sowie _Kann_ Kriterien abzudecken. Folglich wird auf die abgeschlossene Vorstudie wird mithilfe der getroffenen Entscheidungen eine Hauptstudie durchgeführt und die Systeme implementiert und dokumentiert werden. + 
+Wichtig ist dabei, dass die Transparenz jederzeit gewährt ist und der Kunde Einblick in den Vortschritt des Projektes hat.
 
+=== Projektphasen
+Den jeweiligen Vortschritt kann auf dem Projektspezifischem Github https://github.com/b401/tbz_hf_va_docs[Repository] nachvollzogen werden.
 
-=== Projektablauf
+image::phasen.png[]
 
+<<<
+
+==== Phase I | Vorstudie
+Da fehlende Systeme in der Infrastruktur eine Konzeption des Tools für eine Anomalie Erkennung schwierig gestalten, wird in einer Vorstudie die bestehende Infrastruktur analysiert und zusätzliche Software evaluiert. +
+
+Zur evaluierenden Software gehören folgende Komponenten: +
+
+- Centralized Log Management
+- Network Monitoring System
+
+Für die Erhebung wird auf das bestehende Umfeld, sowie die Erfahrung mit den Tools zurückgegriffen.
+
+==== Phase II | Hauptstudie
+In der Hauptstudie werden Issues für die Realisierung erarbeitet und konkretisiert. Es wird auf die Hilfe des Projekt Features von Github zurückgegriffen, sodass der Kunde jederzeit Einsicht auf die momentane Situation des Projekts hat.
+Des weiteren wird der Begriff "Anomalien" konkretisiert und erste Tests durchgeführt.
+
+==== Phase III | Systembau
+Das Tool welches Informationen aus den verschiedenen Netzwerkdevices zieht um Anomalien zu erkennen wird in dieser Phase, anhand der definierten Issues gebaut und getestet. Welche Sprache und in welchem Umfang das Tool entwickelt wird, wurde in der Phase II entschieden.
+
+<<<
+
+=== Projektzeitplan
+
+image::gantt_diagram.pdf[]
 
 <<<
 
