@@ -202,13 +202,13 @@ Natürlich beinhaltet dieser Flowchart nur die grundlegendsten Aktivitäten. Gen
 
 image::flowchart.png[Flowchart einer Reaktion,align="center"]
 
-<<< 
+<<<
 
 === Umsysteme
 
 * **Prozess**
 ** Prozesse müssen respektiert werden.
-** Vorhandene Prozesse welche im Netzwerk aktiv sind, sollen weder beeinflusst noch abgeändert werden. 
+** Vorhandene Prozesse welche im Netzwerk aktiv sind, sollen weder beeinflusst noch abgeändert werden.
 
 * **Richtlinien**
 ** Implementierte Richtlinien sollen weiterhin respektiert und befolgt werden.
@@ -345,10 +345,10 @@ Zentrales Log Management erhöht die durchsicht in einem Netzwerk immens. Ohne L
 
 ==== V1 | Graylog
 
-[cols=".<,>",grid="None",frame="None"]
+[cols=".<7,>3",grid="None",frame="None",align="center",width="80%"]
 |====
 |Graylog ist nicht nur eine Log Management Lösung. Sondern beinhaltet ein komplettes SIEM. Der unterliegende Storage welcher auf Elasticsearch basiert, ermöglicht eine schnelle Suche der Dateien. Besonders interessant ist das REST API und ihre OpenSource Lizenz welche Graylog kostengünstig und erweiterbar macht.
-a|image:graylog.jpg[width="320px"]
+a|image:graylog.jpg[width="250px"]
 |====
 
 ===== Keypunkte
@@ -380,10 +380,10 @@ Wie oben genannt, bietet Graylog die möglichkeit nicht an, Logs in andere Daten
 
 
 ==== V2 | ELK-Stack
-[cols=".<,>",grid="None",frame="None"]
+[cols=".<6,>4",grid="None",frame="None",align="center",width="80%"]
 |====
 | Elasticsearch ist einer der Platzhirsche in Datenverarbeitung und so ziemlich alles, was mit Bigdata und Datenanalyse zu tun hat. Durch Kibana besitzt es eine relativ gute Weboberflächte und mit Logstash besitz es die Möglichkeit Logs zu empfangen und zu bearbeiten.
-a|image:elk.png[width="320px"]
+a|image:elk.png[width="350px"]
 |====
 
 ===== Keypunkte
@@ -404,13 +404,13 @@ Der ELK-Stack beinhaltet alles was man zum Log Managen braucht. Via Beats könne
 .*Beats*
 Dadurch das eine Software genutzt wird um Logs aus den Clients zum Server zu senden (würde auch via Syslog gehen), können zusätzliche Informationen angehängt werden. Zum Beispiel ermöglicht dies dem Server mitzuteilen, welche Beats Version momentan auf dem Client läuft.
 
-<<< 
+<<<
 
 .*RESTful*
 Das integrierte REST API ermöglicht es, selbst Wrapper für die Applikation zu schreiben um schnell an die gewünschten Informationen zu kommen.
 
 ===== Nachteile
-.*Hohe Wartungskosten* 
+.*Hohe Wartungskosten*
 Die Erfahrung mit ELK zeigt, dass die Kosten der Wartung des Servers ziemlich hoch sind (Zeitkosten). Falls ein Shard failen sollte, ist eine rückführung der korruptierten Logs extrem aufwändig bis beinahe unmöglich. Dazu kommt, dass Beats nicht mit allen Logtypen umgehen kann und unter gewissen umständen eigene Parser geschrieben werden müssen.
 
 .*Hohe Lernkurve*
@@ -422,10 +422,11 @@ Die Community Version des ELK-Stacks (Kibana) bietet keine Authentifizierung an.
 <<<
 
 ==== V3 | Splunk
-[cols=".^,^",grid="None",frame="None"]
+
+[cols=".^7,^3",grid="None",frame="None",width="80%",align="center"]
 |====
 | Splunk sollte jedem welcher sich mit Log Management etwas beschäftigt hat ein Begriff sein. Besonders interessant ist Splunk Enterprise Security (ES) welches als SIEM von Splunk selbst dient. Es bietet eine weite Modulare erweiterbarkeit durch Community erstellte Apps dar.
-a|image:splunk.png[width="320px"]
+a| image:splunk.png[width="190px"]
 |====
 
 ===== Keypunkte
@@ -468,16 +469,127 @@ Graylog hingegen würde ich gerne anderswo nochmals testen. Grundsätzlich kann 
 
 
 === Network Monitoring System
-TODO
+
+Netzwerk Monitoring ist ein systematischer versuch, fehlerhafte Komponenten zu entdecken und den Administrator darauf aufmerksam zu machen. +
+Die Funktion, fehlerhafte Komponente zu finden, wird in diesem Projekt nur zweitranging angeschaut. Wichtiger ist die Funktion, allgemeine Informationen aus den Netzwerk-Komponenten zu ziehen und sie zusammen mit anderen Informationen zu deuten.
+
+{nbsp} +
+{nbsp} +
+{nbsp} +
+{nbsp} +
+
+image::nms.png[Network Management Service,width="640"]
+<<<
 
 ==== V0 | Null
-TODO
+
+Es wird kein NMS verwendet. +
+Das Monitoring wird Manuell gehandhabt.
+
+===== Keypunkte
+
+* Geringster initialer Aufwand.
+* Höherer Aufwand in der Programmierung.
+* Erhöht die Gefahr, Anomalien nicht zu erkennen.
+* Downtime kann nicht erkannt werden.
+
+===== Vorteile
+
+.*Geringster initialer Aufwand*
+Durch die nichtbenutzung eines NMS benötigt es keine zusätzliche Konfigurationen.
+
+===== Nachteile
+
+.*Höherer Programmieraufwand*
+Die Logs können nicht mehr von einer zentralen Stelle abgefragt werden. Dies würde dazu führen, dass man eine Liste von vorhandenen Servern führen müsste und diese einzeln jeweils über ihren momentan Stand abfragen.
+
+.*Anomalien nicht erkennen*
+Zentrales Log Management erhöht die durchsicht in einem Netzwerk immens. Ohne Log-Collector können einzelne Server/Dienste vergessen gehen oder nicht abgefragt werden.
+
+<<<
 
 ==== V1 | PRTG
-TODO
+
+[cols=".^7,>3",width="80%",align="center",grid="None",frame="None"]
+|====
+| Obwohl PRTG eine proporitäre Monitoringlösung ist, findet es immer wieder Erwähnung wenn es um stabile und umfassende NMS geht. +
+PRTG arbeitet mit sogenannten Sensoren, um von einem zentralem Windows Server aus, jegliche informationen zu aggregieren.
+a|image:prtg.png[width="250px"]
+|====
+
+===== Architektur
+
+image::prtg_overview.png[PRTG Overview,640,400,align="center"]
+
+<<<
+
+===== Keypunkte
+
+* Benötigt einen Windows-Server
+* Free Version beinhaltet maximal 100 Sensoren
+* Anbindung an OpenLDAP nicht möglich
+* Leichte Überwachung neuer Dienste
+* Hohe Anzahl an bereits vorhandenen Sensoren
+* Bereits im POC vorhanden
+
+===== Vorteile
+
+.*Simple Konfiguration*
+Hinzufügen neuer Sensoren & Services funktioniert direkt auf Knopfdruck. Konfiguration kann anhand eines gut übersichtlichen Webinterfaces vorgenommen werden.
+Die Handhabung im Sinne der Komplexität unterscheidet sich masgebend von den restlichen NMS.
+
+.*Vorhandene Installation*
+Im NWD Projekt wurde bereits ein PRTG aufgesetzt und konfiguriert. Dies bedeutet, dass keine zusätzlichen anpassungen gemacht werden müssten.
+
+===== Nachteile
+
+.*Windows*
+Da der Masterserver von PRTG zwingend eine Windows Umgebung benötigt, ist es unumgänglich einen einzelnen Windows Server zu betreiben.
+
+.*OpenLDAP*
+PRTG kann nicht offiziel via OpenLDAP angebunden werden. Dies bedeutet, dass die User und Berechtigungen zusätzlich verwaltet werden müssten.
+
+<<<
 
 ==== V2 | Nagios
-TODO
+[cols=".^7,.>3",grid="None",frame="None",width="80%",align="center"]
+|====
+| Das im Jahre 2002 Entwickelte NMS Nagios ist eines der führenden Monitoringlösungen in Linux Umgebungen. Mithilfe diversen Plugins / Agenten lassen sich auch andere Platformen überwachen und liefern ihre Daten an einen lokalen Nagios Server.
+a|image:nagios.png[width="250px"]
+|====
+
+===== Architektur
+
+image::nagios_overview.png[Nagios Overview,640,400,align="center"]
+
+<<<
+
+===== Keypunkte
+
+* Läuft auf *nix
+* Eigene Syntax/Sprache
+* Viele Plugins
+* OpenSource
+* Eher höhere Lernkurve
+* Ohne Scripts etwas umständlich
+
+===== Vorteile
+
+.*\*NIX*
+Dadurch dass Nagios unter Linux läuft, benötigt es keinen zusätzlichen Windows Server in einer sonst homogenen Infrastruktur.
+
+.*Plugins*
+Mithilfe der Plugins ist es möglich auch eher fremdartige Systeme zu überwachen. Viele diese Plugins sind offiziel unterstützt und werden aktiv durch die Community entwickelt.
+
+===== Nachteile
+
+.*Komplexität*
+Die Konfiguration neuer Services benötigt einiges an Zeit. Da das Ziel des Projektes nicht eine Inbetriebnahme eines NMS ist, befindet sich die Komplexität ausserhalb des Scopes.
+
+.*Zusätzliche Systeme*
+Eine Installation müsste im Poc LAN komplett vorgenommen werden. Es gibt noch keinen Server welcher frei für eine NMS installation ist.
+
+<<<
 
 ==== SW-Bewertung
 
