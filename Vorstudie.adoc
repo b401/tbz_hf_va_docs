@@ -18,7 +18,25 @@ Ives Schneider <ives.schneider@i-401.xyz>
 <<<
 
 == Management Summary
-TODO
+Durchschnittlich dauert es 206 Tage, bis eine Anomalie in Firmennetzwerken entdeckt werden. Studien zeigen, umso länger eine Anomalie unentdeckt bleibt umso teurer werden die Auswirkungen. https://www.ibm.com/security/data-breach +
+{nbsp} +
+Anomalien können von kleineren Netzwerkunterbrüchen bis hin zum total Ausfall mehrerer geschäftswichtigen Bussiness Applikationen und Infrastrukturen führen. Innerhalb dieser Vorstudie, wird das POC Netz welches für die Entwicklung einer Anomalie erkennungs Applikation verwendet wird, näher definiert (Umsysteme), sowie die Möglichkeit angeschaut, in wieweit Anomalien bereits erkannt werden können. +
+Anhand der bereits vorhandenen Infrastruktur kann eine relativ gute Annahme gemacht werden, welche Umsysteme angesprochen werden können.
+{nbsp} +
+Für die fehlende Software, wurde eine Evaluation anhand einer gegenüberstellung gemacht. +
+
+.Log Collector System
+- Graylog
+- ELK-Stack
+- Splunk
+
+.Network Monitoring System
+- PRTG
+- Nagios
+
+Anhand der Evaluation wurde entschieden, dass das Projekt weiterhing mit Splunk as Log Collector und PRTG als Network Monitoring System durchführbar ist. +
+Tiefere Anschauung zum Umfang und Limitationen der Software wird in der Hauptstudie weiterverfolgt. +
+
 
 <<<
 
@@ -81,11 +99,6 @@ TODO
 
 <<<
 
-==== Ausgangslage
-
-TODO
-
-<<<
 
 == Projektziele
 
@@ -242,9 +255,7 @@ Das POC LAN https://gitlab.com/nliechti/up2/wikis/home[@Gitlab] besitzt ein NMS 
 ==== Beobachtungen, Messungen
 
 Um einen besseren Überblick über die vorhanden Infrastruktur zu bekommen, wird mithilfe einigen Tools Messungen und Beobachtungen anhand des POC Lans durchgeführt.
-Die genaue Analyse der Beobachtungen wird in der Hauptstudie genauer analysiert.
-
-// TODO
+Die genaue Analyse der erhobenen Daten wird in der Hauptstudie genauer analysiert.
 
 <<<
 
@@ -478,7 +489,7 @@ Die Funktion, fehlerhafte Komponente zu finden, wird in diesem Projekt nur zweit
 {nbsp} +
 {nbsp} +
 
-image::nms.png[Network Management Service,width="640"]
+image::nms.png[Network Monitoring System,width="640"]
 <<<
 
 ==== V0 | Null
@@ -591,15 +602,19 @@ Eine Installation müsste im Poc LAN komplett vorgenommen werden. Es gibt noch k
 
 <<<
 
-==== SW-Bewertung
-
 ==== V-Bewertung
+
+image::nutzwert_nms.png[Nutzwertanalyse]
 
 
 <<<
 
-
 == Weiteres Vorgehen
+Anhand der nun evaluierten Software, kann mit der Hauptstudie vortgefahren werden. In der Hauptstudie wird genauer auf die Applikation eingegangen und bereits erste Ansätze des Designs entschieden. Da die Umsysteme alle über APIs verfügen, muss evaluiert werden ob bereits Module für die Abfrage vorhanden sind. Falls dies nicht der Fall sein sollte, müssen weitere Module entwickelt werden. 
+
+Das POC Lan wird mit den evaluierten Technologien aufgewertet und miteinander verknüpft. Danach kann angefangen werden, die einzelnen Systeme abzufragen und die Auswertungen miteinander zu kombinieren.
+
+
 
 <<<
 
@@ -609,6 +624,54 @@ Eine Installation müsste im Poc LAN komplett vorgenommen werden. Es gibt noch k
 
 == Darstellungsverzeichnis
 
+[cols="<,>",width="80%",align="center"]
+|=====
+| 1
+| Projekt Mitarbeiter
+| 2
+| Präferenzmatrix
+| 3
+| Systemgrenzen
+| 4 
+| Flowchart einer Reaktion
+| 5
+| Risikomatrix
+| 6
+| SWOT-Analyse
+| 7
+| Log-Management
+| 8
+| Graylog
+| 9
+| ELK
+| 10
+| Splunk
+| 11
+| Nutzwertanalyse
+| 12
+| Network Monitoring System
+| 13
+| PRTG
+| 14
+| PRTG Overview
+| 15
+| Nagios
+| 16
+| Nagios Overview
+| 17
+| Nutzweranalyse
+|=====
+
+
 <<<
 
 == Glossar
+
+.NMS
+Network Monitoring System - Überwachungssystem
+
+.POC
+Proof of concept - Konzeptbeweise
+
+.Shadow IT
+Unbekannte Geräte innerhalb der Unternehmung.
