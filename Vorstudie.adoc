@@ -18,12 +18,12 @@ Ives Schneider <ives.schneider@i-401.xyz>
 <<<
 
 == Management Summary
-Durchschnittlich dauert es 206 Tage, bis eine Anomalie in Firmennetzwerken entdeckt werden. Studien zeigen, umso länger eine Anomalie unentdeckt bleibt umso teurer werden die Auswirkungen. https://www.ibm.com/security/data-breach +
+Durchschnittlich dauert es 206 Tage, bis eine Anomalie in Firmennetzwerken entdeckt werden. Studien zeigen, umso länger eine Anomalie unentdeckt bleibt umso teurer werden die Auswirkungen. https://www.ibm.com/security/data-breach[IBM] +
 {nbsp} +
-Anomalien können von kleineren Netzwerkunterbrüchen bis hin zum total Ausfall mehrerer geschäftswichtigen Bussiness Applikationen und Infrastrukturen führen. Innerhalb dieser Vorstudie, wird das POC Netz welches für die Entwicklung einer Anomalie erkennungs Applikation verwendet wird, näher definiert (Umsysteme), sowie die Möglichkeit angeschaut, in wieweit Anomalien bereits erkannt werden können. +
+Anomalien können von kleineren Netzwerkunterbrüchen bis hin zum Totalausfall mehrerer geschäftswichtigen Bussiness Applikationen und Infrastrukturen führen. Innerhalb dieser Vorstudie, wird das POC Netz welches für die Entwicklung einer Anomalie Erkennung verwendet wird, näher definiert (Umsysteme), sowie die Möglichkeit angeschaut, in wieweit Anomalien bereits erkannt werden können. +
 Anhand der bereits vorhandenen Infrastruktur kann eine relativ gute Annahme gemacht werden, welche Umsysteme angesprochen werden können.
 {nbsp} +
-Für die fehlende Software, wurde eine Evaluation anhand einer gegenüberstellung gemacht. +
+Für die fehlende Software wurde eine Evaluation anhand einer Gegenüberstellung gemacht. +
 
 .Log Collector System
 - Graylog
@@ -34,7 +34,7 @@ Für die fehlende Software, wurde eine Evaluation anhand einer gegenüberstellun
 - PRTG
 - Nagios
 
-Anhand der Evaluation wurde entschieden, dass das Projekt weiterhing mit Splunk as Log Collector und PRTG als Network Monitoring System durchführbar ist. +
+Anhand der Evaluation wurde entschieden, dass das Projekt mit Splunk as Log Collector und PRTG als Network Monitoring System durchgeführt werden kann. +
 Tiefere Anschauung zum Umfang und Limitationen der Software wird in der Hauptstudie weiterverfolgt. +
 
 
@@ -181,7 +181,7 @@ Grundsätzlich sollen keine bestehenden Arbeitsabläufe geändert oder gefährde
 
 ==== Clients
 Vorhandene Clients müssen kategorisiert und eingestuft werden. +
-Sobald ein Client hinzukommen oder entfernt werde sollte, muss eine Reaktion darauf ausgelöst werden und die Änderung in der Baseline vermerkt werden.
+Sobald ein Client hinzukommen oder entfernt werden sollte, muss eine Reaktion darauf ausgelöst werden und die Änderung in der Baseline vermerkt werden.
 
 ==== Server
 Unbekannte Server und Services müssen gemeldet und eingestuft werden. +
@@ -191,17 +191,17 @@ Ebenfalls sollten unbekannte Server direkt eine Reaktion auslösen.
 Switches werden anhand von SNMP überwacht. Sollte sich ein Wert ausserhalb der Baseline befinden, muss eine Reaktion darauf erfolgen.
 
 ==== Firewall
-Firewall werden mithilfe ihren APIs abgefragt. Falls kein API vorhanden sein sollte, wird auf SNMP zurückgegriffen.
+Firewall werden mithilfe APIs abgefragt. Falls kein API vorhanden sein sollte, wird auf SNMP zurückgegriffen.
 
 ==== NMS
 Das NMS wird als einer der Hauptquellen für Informationen über das momentane Verhalten des Netzwerkes zu Rate gezogen. +
-Ebenfalls wird das NMS passiv sowie pro-aktiv in die Informationssuche miteingschlossen.
+Ebenfalls wird das NMS passiv sowie pro-aktiv in die Informationssuche mit eingschlossen.
 
 ==== AccessPoints
-Es soll stetts eine Übersicht über die Anzahl und Identifikationen der verbundenen Clients vorhanden sein.
+Es soll stets eine Übersicht über die Anzahl der verbundenen Clients vorhanden sein.
 
 ==== Router
-Router werden anhand ARP sowie SNMP in die Überwachung miteingebunden.
+Router werden anhand ARP sowie SNMP in die Überwachung mit eingebunden.
 
 ==== Logs
 Es wird ein Log-Collector evaluiert um die gesamten Logs zentral zu speichern und abfragen zu können.
@@ -221,7 +221,7 @@ image::flowchart.png[Flowchart einer Reaktion,align="center"]
 
 * **Prozess**
 ** Prozesse müssen respektiert werden.
-** Vorhandene Prozesse welche im Netzwerk aktiv sind, sollen weder beeinflusst noch abgeändert werden.
+** Prozesse, welche im Netzwerk aktiv sind, sollen weder beeinflusst noch abgeändert werden.
 
 * **Richtlinien**
 ** Implementierte Richtlinien sollen weiterhin respektiert und befolgt werden.
@@ -229,19 +229,19 @@ image::flowchart.png[Flowchart einer Reaktion,align="center"]
 
 === Schnittstellen
 
-* Entscheidung und Alayse bei gemeldeten Analysen
+* Entscheidung und Analyse bei gemeldeten incidents
 * Kommunikation bei true positiv alerts
-* Aktive anpassung der Baseline
+* Aktive Anpassung der Baseline
 * Kommunikation bei Änderungen im Netzwerk
 
 
 === Systemgrenzen
 
-* Analyse betrifft nur das PoC LAN und darf nicht auf das produktive LAN ausgeweitet werden.
+* Analyse betrifft nur das POC LAN und darf nicht auf das produktive LAN ausgeweitet werden.
 
 
 === Gemeinsamkeiten
-Alle Untersysteme müssen einen gewissen Grad an Compliance mit den gegebenen IST-Zuständen aufweisen können. Dies bedeutet, dass bei bereits eingesetzter Software/Hardware APIs zur verfügung stehen müssen, um effektiv Anomalien erkennen zu können.
+Alle Untersysteme müssen einen gewissen Grad an Compliance mit den gegebenen IST-Zuständen aufweisen können. Dies bedeutet, dass bei bereits eingesetzter Software/Hardware APIs zur Verfügung stehen müssen, um effektiv Anomalien erkennen zu können.
 
 <<<
 
@@ -254,8 +254,9 @@ Das POC LAN https://gitlab.com/nliechti/up2/wikis/home[@Gitlab] besitzt ein NMS 
 
 ==== Beobachtungen, Messungen
 
-Um einen besseren Überblick über die vorhanden Infrastruktur zu bekommen, wird mithilfe einigen Tools Messungen und Beobachtungen anhand des POC Lans durchgeführt.
+Um einen besseren Überblick über die vorhandene Infrastruktur zu bekommen, wird mithilfe einigen Tools Messungen und Beobachtungen anhand des POC Lans durchgeführt.
 Die genaue Analyse der erhobenen Daten wird in der Hauptstudie genauer analysiert.
+Dank der Übersichtlichen Wiki Darstellung im Gitlab, sind alle Informationen vorhanden.
 
 <<<
 
@@ -277,22 +278,22 @@ image::risikomatrix.png[Risikomatrix,640]
 
 === IST-Zustand
 Die Infrastruktur bietet eine Basis, um Ausfälle einzelner Dienste zu sehen und die Administratoren zu informieren. Paketverlust oder andere Anomalien können zzt. noch nicht erkannt werden.
-Da bereits Switches, welche via SNMP überwacht werden, vorhanden sind kann darauf aufgebaut werden weitere Informationen zu bekommen.
+Da bereits Switches, welche via SNMP überwacht werden vorhanden sind, kann darauf aufgebaut werden, weitere Informationen zu bekommen.
 
 === SWOT-Analyse
 Die SWOT-Analyse soll Aufsicht über den momentanen Zustand geben. +
 Mithilfe der Matrix wird erhofft zukünftige Chancen sowie momentane Schwächen besser feststellen zu können.
 
 ==== Rahmenbedingungen
-* Firma überwachen nur ihren Perimeter, nicht aber innerhalb der Segmente.
-* Durchschnittlicher lifecycle eines Databreaches beträgt 279 Tage https://newsroom.ibm.com/2019-07-23-IBM-Study-Shows-Data-Breach-Costs-on-the-Rise-Financial-Impact-Felt-for-Years#assets_all[IBM]
+* Firmen überwachen meist nur ihre Perimeter, nicht aber Traffik innerhalb der Segmente.
+* Durchschnittlicher Lifecycle eines Databreaches beträgt 279 Tage https://newsroom.ibm.com/2019-07-23-IBM-Study-Shows-Data-Breach-Costs-on-the-Rise-Financial-Impact-Felt-for-Years#assets_all[IBM]
 * Erst nach 207 Tagen, wird im Durchschnitt ein Einbruch gefunden.
-* Firmen setzen häufig auf AV/Endpoint Security und Firewalls. Allerdings nicht auf HIDS/NIDS
+* Firmen setzen häufig auf Endpoint-Security und Firewalls. Allerdings nicht auf HIDS/NIDS
 
 ==== Stärken/Schwächen Profil
 
 .*Stärken*
-Auch wenn innerhalb des POC LANs kein Mechanismus vorhanden ist um Anomalien zu erkennen, sind dennoch die rudimentären Anforderungen vorhanden um solch ein System einzurichten. Ebenfalls besteht bereits eine Perimeter-Überwachung welche die wichtigsten Dienste, welche ein fehlerfreies arbeiten garantiert. Da der grösste Teil der Infrastruktur auf Open Source basiert, ist es ebenfalls ein leichtes, Module zu erweitern und anzupassen.
+Auch wenn innerhalb des POC LANs kein Mechanismus vorhanden ist um Anomalien zu erkennen, sind dennoch die rudimentären Anforderungen vorhanden um solch ein System einzurichten. Ebenfalls besteht bereits eine Perimeter-Überwachung welche die wichtigsten Dienste, welche ein fehlerfreies Arbeiten garantiert. Da der grösste Teil der Infrastruktur auf Open Source basiert, ist es ebenfalls ein leichtes, Module zu erweitern und anzupassen.
 
 .*Schwächen*
 Die Umgebung an sich besitzt ein unzureichendes Monitoring. Anomalien können nur schlecht oder gar nicht erkannt werden. Im Falle einer entdeckten Anomalie, kann aufgrund fehlender zentralen Loggings nicht garantiert werden, dass der Verursacher gefunden werden kan.
@@ -301,7 +302,7 @@ Die Umgebung an sich besitzt ein unzureichendes Monitoring. Anomalien können nu
 Die Software für die Anomalie Erkennung soll einen Mehrwert in der gesamten Struktur des Netzwerkes erbringen. Allgemeine Risiken und Gefahren können durch ein frühzeitiges erkennen eingedämmt oder direkt unterbunden werden. Durch den Einsatz eines Log-Collectors und eines NMS, können Anhaltspunkte zur Überwachung des Netzwerks gegeben werden.
 
 .*Gefahren*
-Durch die erhöhte Überwachung des Netzerkes könnte es zu Datenschutz problemen führen. Sowie erhöhter Administrativer Aufwand die Baseline zu wahren.
+Durch die erhöhte Überwachung der Netzwerke könnte es zu Datenschutz verletzungen führen. Sowie erhöhter Administrativer Aufwand die Baseline zu wahren.
 
 ==== Matrix
 
@@ -350,7 +351,7 @@ Ohne Log-Collector müsste das Syslog bei keinem Server konfiguriert werden. Som
 Die Logs können nicht mehr von einer zentralen Stelle abgefragt werden. Dies würde dazu führen, dass man eine Liste von vorhandenen Servern führen müsste und diese einzeln jeweils über ihren momentan Stand abfragen.
 
 .*Anomalien nicht erkennen*
-Zentrales Log Management erhöht die durchsicht in einem Netzwerk immens. Ohne Log-Collector können einzelne Server/Dienste vergessen gehen oder nicht abgefragt werden.
+Zentrales Log Management erhöht die Durchsicht in einem Netzwerk immens. Ohne Log-Collector können einzelne Server/Dienste vergessen gehen oder nicht abgefragt werden.
 
 <<<
 
@@ -373,10 +374,10 @@ a|image:graylog.jpg[width="250px"]
 ===== Vorteile
 
 .*Free*
-Das Open Source sowie Enterprise Model sind von interesse wenn es darum geht, Logs zu collecten und abzuarbeiten. Falls es zu einer Entscheidung zu Graylog kommen sollte, wird allerdings auf das Enterprise Model verzichtet, da es sich nur um ein POC handelt.
+Das Open Source sowie Enterprise Model sind von Interesse wenn es darum geht, Logs zusammenzuführen und abzuarbeiten. Falls es zu einer Entscheidung zu Graylog kommen sollte, wird allerdings auf das Enterprise Model verzichtet, da es sich nur um ein POC handelt.
 
 .*RESTful*
-Das integrierte REST API ermöglicht es, selbst Wrapper für die Applikation zu schreiben um schnell an die gewünschten Informationen zu kommen.
+Das integrierte REST API ermöglicht es, selbst Wrapper für die Applikation zu schreiben, um schnell an die gewünschten Informationen zu kommen.
 
 ===== Nachteile
 
@@ -385,7 +386,7 @@ Graylog kann eines gut - Logs managen. +
 Andere Lösungen bieten die Funktionalität direkt Graphen aus den Logs herauszuschreiben. Graylog hingegen benötigt dafür weitere Tools (Graphana).
 
 .*Limited scope*
-Wie oben genannt, bietet Graylog die möglichkeit nicht an, Logs in andere Daten umzuwandeln um sie Beispielsweise in den KPIs anzuzeigen.
+Wie oben genannt, bietet Graylog die Möglichkeit nicht an, Logs in andere Daten umzuwandeln um sie Beispielsweise in den KPIs anzuzeigen.
 
 <<<
 
@@ -393,7 +394,7 @@ Wie oben genannt, bietet Graylog die möglichkeit nicht an, Logs in andere Daten
 ==== V2 | ELK-Stack
 [cols=".<6,>4",grid="None",frame="None",align="center",width="80%"]
 |====
-| Elasticsearch ist einer der Platzhirsche in Datenverarbeitung und so ziemlich alles, was mit Bigdata und Datenanalyse zu tun hat. Durch Kibana besitzt es eine relativ gute Weboberflächte und mit Logstash besitz es die Möglichkeit Logs zu empfangen und zu bearbeiten.
+| Elasticsearch ist einer der Platzhirsche in Datenverarbeitung und so ziemlich alles, was mit Bigdata und Datenanalyse zu tun hat. Durch Kibana besitzt es eine relativ gute Weboberfläche und mit Logstash besitzt es die Möglichkeit Logs zu empfangen und zu bearbeiten.
 a|image:elk.png[width="350px"]
 |====
 
@@ -410,25 +411,25 @@ a|image:elk.png[width="350px"]
 
 ===== Vorteile
 .*Vollumfänglich*
-Der ELK-Stack beinhaltet alles was man zum Log Managen braucht. Via Beats können Logs von Windows sowie Linux Client empfangen und transformiert werden. Kibana ermöglicht das Anzeigen der Logs in Realtime direkt in einer Weboberfläche, und Elasticsearch bietet eine vollumfängliche analytische Umgebung um Logs zu analysieren an.
+Der ELK-Stack beinhaltet alles, was man zum Log Managen braucht. Via Beats können Logs von Windows sowie Linux Client empfangen und transformiert werden. Kibana ermöglicht das Anzeigen der Logs in Realtime direkt in einer Weboberfläche und Elasticsearch bietet eine vollumfängliche analytische Umgebung, um Logs zu analysieren an.
 
 .*Beats*
-Dadurch das eine Software genutzt wird um Logs aus den Clients zum Server zu senden (würde auch via Syslog gehen), können zusätzliche Informationen angehängt werden. Zum Beispiel ermöglicht dies dem Server mitzuteilen, welche Beats Version momentan auf dem Client läuft.
+Dadurch das eine Software genutzt wird, um Logs aus den Clients zum Server zu senden (würde auch via Syslog gehen), können zusätzliche Informationen angehängt werden. Zum Beispiel ermöglicht dies dem Server mitzuteilen, welche Beats Version momentan auf dem Client läuft.
 
 <<<
 
 .*RESTful*
-Das integrierte REST API ermöglicht es, selbst Wrapper für die Applikation zu schreiben um schnell an die gewünschten Informationen zu kommen.
+Das integrierte REST API ermöglicht es, selbst Wrapper für die Applikation zu schreiben, um schnell an die gewünschten Informationen zu kommen.
 
 ===== Nachteile
 .*Hohe Wartungskosten*
-Die Erfahrung mit ELK zeigt, dass die Kosten der Wartung des Servers ziemlich hoch sind (Zeitkosten). Falls ein Shard failen sollte, ist eine rückführung der korruptierten Logs extrem aufwändig bis beinahe unmöglich. Dazu kommt, dass Beats nicht mit allen Logtypen umgehen kann und unter gewissen umständen eigene Parser geschrieben werden müssen.
+Die Erfahrung mit ELK zeigt, dass die Kosten der Wartung des Servers ziemlich hoch sind (Zeitkosten). Falls ein Shard fehlschlagen sollte, ist eine Rückführung der defekten Logs extrem aufwändig bis beinahe unmöglich. Dazu kommt, dass Beats nicht mit allen Logtypen umgehen kann und unter gewissen Umständen eigene Parser geschrieben werden müssen.
 
 .*Hohe Lernkurve*
-Die Administration eines ELK-Stack ist nicht einfacht. Bereits das Verwalten von mehreren Nodes ist extrem Zeitaufwändig, geschweige von den Konfigurationsmöglichkeiten welche Logstash mit sich bringt.
+Die Administration eines ELK-Stack ist nicht einfach. Bereits das Verwalten von mehreren Nodes ist extrem zeitaufwändig, geschweige von den Konfigurationsmöglichkeiten welche Logstash mit sich bringt.
 
 .*Keine Authentifizierung*
-Die Community Version des ELK-Stacks (Kibana) bietet keine Authentifizierung an. Das heisst, das zusätzlich ein Apache2/nginx oder ein reverse Proxy vorgeschalten werden müsste, welcher die Authentifizierung übernimmt.
+Die Community Version des ELK-Stacks (Kibana) bietet keine Authentifizierung an. Das heisst, dass zusätzlich ein reverse Proxy eingesetzt werden müsste, welcher die Authentifizierung übernimmt.
 
 <<<
 
@@ -436,7 +437,7 @@ Die Community Version des ELK-Stacks (Kibana) bietet keine Authentifizierung an.
 
 [cols=".^7,^3",grid="None",frame="None",width="80%",align="center"]
 |====
-| Splunk sollte jedem welcher sich mit Log Management etwas beschäftigt hat ein Begriff sein. Besonders interessant ist Splunk Enterprise Security (ES) welches als SIEM von Splunk selbst dient. Es bietet eine weite Modulare erweiterbarkeit durch Community erstellte Apps dar.
+| Splunk sollte jedem welcher sich mit Log Management etwas beschäftigt hat ein Begriff sein. Besonders interessant ist Splunk Enterprise Security (ES) welches als SIEM von Splunk selbst dient. Es bietet ein weites Modulares System durch Community erstellte Apps bereit.
 a| image:splunk.png[width="190px"]
 |====
 
@@ -454,7 +455,7 @@ a| image:splunk.png[width="190px"]
 Wie bei den restlichen Tools wird ein RESTful sowie HTTP API verwendet.
 
 .*Monitoring und Alerting*
-Splunk besitzt bereits selbst die Funktionalität, Daten zu monitoren und bei Sonderfällen die Administratoren zu informieren.
+Splunk besitzt bereits selbst die Funktionalität, Daten zu überwachen und bei Sonderfällen die Administratoren zu informieren.
 
 .*Easy Setup*
 Das Setup benötigt nur einen Splunk Server und evtl. einen Splunk Forwarder. Zusätzliche Komponenten wie bei den anderen Lösungen werden nicht benötigt.
@@ -465,7 +466,7 @@ Es lebt sich leichter mit Server welche kein Java benötigten. Splunk ist in C++
 ===== Nachteile
 
 .*Properitär*
-Splunk ist nicht Open Source. Dies behält den Nachteil, dass man nicht sicher gehen kann, was die Software genau unterliegend macht. Im Fehlerfall, kann nicht direkt im Code nachgeschaut werden, was nun schief gelaufen ist.
+Splunk ist nicht Open Source. Dies behält den Nachteil, dass man nicht sicher gehen kann, was die Software genau unterliegend macht. Im Fehlerfall, kann nicht direkt im Code nachgeschaut werden, was nun schiefgelaufen ist.
 
 ==== V-Bewertung
 
@@ -473,8 +474,8 @@ image::nutzwert.png[Nutzwertanalyse]
 
 ===== Analyse
 Grundsätzlich war es ein sehr enges Rennen. +
-Bei einem ELK-Stack ist die Aktivität etwas ein Problem. Viele Tools laufen nur mit älteren Versionen von Elasticsearch und sind daher auf bestimmte Konfigurationen angewiesen. +
-Graylog hingegen würde ich gerne anderswo nochmals testen. Grundsätzlich kann man allerdings sagen, das Splunk eines der weitverbreitesten und innovativsten Log Monitoring Managements ist. Daher viel die wahl u.a. der grossen Community und ausführliche Dokumentation auf Splunk.
+Bei einem ELK-Stack sind die Versionen etwas ein Problem. Viele Tools laufen nur mit älteren Versionen von Elasticsearch und sind daher auf bestimmte Konfigurationen angewiesen. +
+Graylog hingegen würde ich gerne anderswo nochmals testen. Grundsätzlich kann man allerdings sagen, das Splunk eines der weitverbreitesten und innovativsten Log Monitoring Managements ist. Daher fiel die Wahl u. a. der grossen Community und ausführliche Dokumentation auf Splunk.
 
 <<<
 
@@ -482,7 +483,7 @@ Graylog hingegen würde ich gerne anderswo nochmals testen. Grundsätzlich kann 
 === Network Monitoring System
 
 Netzwerk Monitoring ist ein systematischer versuch, fehlerhafte Komponenten zu entdecken und den Administrator darauf aufmerksam zu machen. +
-Die Funktion, fehlerhafte Komponente zu finden, wird in diesem Projekt nur zweitranging angeschaut. Wichtiger ist die Funktion, allgemeine Informationen aus den Netzwerk-Komponenten zu ziehen und sie zusammen mit anderen Informationen zu deuten.
+Die Funktion, fehlerhafte Komponente zu finden, wird in diesem Projekt nur zweitrangig angeschaut. Wichtiger ist die Funktion, allgemeine Informationen aus den Netzwerk-Komponenten zu ziehen und sie zusammen mit anderen Informationen zu deuten.
 
 {nbsp} +
 {nbsp} +
@@ -512,10 +513,10 @@ Durch die nichtbenutzung eines NMS benötigt es keine zusätzliche Konfiguration
 ===== Nachteile
 
 .*Höherer Programmieraufwand*
-Die Logs können nicht mehr von einer zentralen Stelle abgefragt werden. Dies würde dazu führen, dass man eine Liste von vorhandenen Servern führen müsste und diese einzeln jeweils über ihren momentan Stand abfragen.
+Die Logs können nicht mehr von einer zentralen Stelle abgefragt werden. Dies würde dazu führen, dass man eine Liste von vorhandenen Server führen müsste und diese einzeln jeweils über ihren momentanen Stand abfragen.
 
 .*Anomalien nicht erkennen*
-Zentrales Log Management erhöht die durchsicht in einem Netzwerk immens. Ohne Log-Collector können einzelne Server/Dienste vergessen gehen oder nicht abgefragt werden.
+Zentrales Log Management erhöht die Übersicht in einem Netzwerk immens. Ohne Log-Collector können einzelne Server/Dienste vergessen gehen oder nicht abgefragt werden.
 
 <<<
 
@@ -523,8 +524,8 @@ Zentrales Log Management erhöht die durchsicht in einem Netzwerk immens. Ohne L
 
 [cols=".^7,>3",width="80%",align="center",grid="None",frame="None"]
 |====
-| Obwohl PRTG eine proporitäre Monitoringlösung ist, findet es immer wieder Erwähnung wenn es um stabile und umfassende NMS geht. +
-PRTG arbeitet mit sogenannten Sensoren, um von einem zentralem Windows Server aus, jegliche informationen zu aggregieren.
+| Obwohl PRTG eine proprietäre Monitoring Lösung ist, findet es immer wieder Erwähnung, wenn es um stabile und umfassende NMS geht. +
+PRTG arbeitet mit sogenannten Sensoren, um von einem zentralem Windows Server aus, jegliche Informationen zu aggregieren.
 a|image:prtg.png[width="250px"]
 |====
 
@@ -547,10 +548,10 @@ image::prtg_overview.png[PRTG Overview,640,400,align="center"]
 
 .*Simple Konfiguration*
 Hinzufügen neuer Sensoren & Services funktioniert direkt auf Knopfdruck. Konfiguration kann anhand eines gut übersichtlichen Webinterfaces vorgenommen werden.
-Die Handhabung im Sinne der Komplexität unterscheidet sich masgebend von den restlichen NMS.
+Die Handhabung im Sinne der Komplexität unterscheidet sich massgebend von den restlichen NMS.
 
 .*Vorhandene Installation*
-Im NWD Projekt wurde bereits ein PRTG aufgesetzt und konfiguriert. Dies bedeutet, dass keine zusätzlichen anpassungen gemacht werden müssten.
+Im NWD Projekt wurde bereits ein PRTG aufgesetzt und konfiguriert. Dies bedeutet, dass keine zusätzlichen Anpassungen gemacht werden müssten.
 
 ===== Nachteile
 
@@ -558,14 +559,14 @@ Im NWD Projekt wurde bereits ein PRTG aufgesetzt und konfiguriert. Dies bedeutet
 Da der Masterserver von PRTG zwingend eine Windows Umgebung benötigt, ist es unumgänglich einen einzelnen Windows Server zu betreiben.
 
 .*OpenLDAP*
-PRTG kann nicht offiziel via OpenLDAP angebunden werden. Dies bedeutet, dass die User und Berechtigungen zusätzlich verwaltet werden müssten.
+PRTG kann nicht offiziell via OpenLDAP angebunden werden. Dies bedeutet, dass die User und Berechtigungen zusätzlich verwaltet werden müssten.
 
 <<<
 
 ==== V2 | Nagios
 [cols=".^7,.>3",grid="None",frame="None",width="80%",align="center"]
 |====
-| Das im Jahre 2002 Entwickelte NMS Nagios ist eines der führenden Monitoringlösungen in Linux Umgebungen. Mithilfe diversen Plugins / Agenten lassen sich auch andere Platformen überwachen und liefern ihre Daten an einen lokalen Nagios Server.
+| Das im Jahre 2002 Entwickelte NMS Nagios ist eines der führenden Monitoring Lösungen in Linux Umgebungen. Mithilfe diversen Plugins / Agenten lassen sich auch andere Plattformen überwachen und liefern ihre Daten an einen lokalen Nagios Server.
 a|image:nagios.png[width="250px"]
 |====
 
@@ -586,11 +587,11 @@ image::nagios_overview.png[Nagios Overview,640,400,align="center"]
 
 ===== Vorteile
 
-.*\*NIX*
+.**NIX*
 Dadurch dass Nagios unter Linux läuft, benötigt es keinen zusätzlichen Windows Server in einer sonst homogenen Infrastruktur.
 
 .*Plugins*
-Mithilfe der Plugins ist es möglich auch eher fremdartige Systeme zu überwachen. Viele diese Plugins sind offiziel unterstützt und werden aktiv durch die Community entwickelt.
+Mithilfe der Plugins ist es möglich auch eher fremdartige Systeme zu überwachen. Viele diese Plugins sind offiziell unterstützt und werden aktiv durch die Community entwickelt.
 
 ===== Nachteile
 
@@ -598,7 +599,7 @@ Mithilfe der Plugins ist es möglich auch eher fremdartige Systeme zu überwache
 Die Konfiguration neuer Services benötigt einiges an Zeit. Da das Ziel des Projektes nicht eine Inbetriebnahme eines NMS ist, befindet sich die Komplexität ausserhalb des Scopes.
 
 .*Zusätzliche Systeme*
-Eine Installation müsste im Poc LAN komplett vorgenommen werden. Es gibt noch keinen Server welcher frei für eine NMS installation ist.
+Eine Installation müsste im POC LAN komplett vorgenommen werden. Es gibt noch keinen Server welcher frei für eine NMS installation ist.
 
 <<<
 
@@ -606,11 +607,16 @@ Eine Installation müsste im Poc LAN komplett vorgenommen werden. Es gibt noch k
 
 image::nutzwert_nms.png[Nutzwertanalyse]
 
+==== Analyse
+Da PRTG bereits im POC Netzwerk konfiguriert ist und alle notwendigen Punkte erfüllt werden konnten, viel die Wahl relativ einfach. +
+Nagios an sich lohnt sich, wenn man ein neues NMS einführen muss, welches möglichst hohe anpassbarkeit benötigt. Zusätzlich dazu, ist die Lizenz welche Nagios bietet, weniger restriktiv als die von PRTG.
+Die APIs der beiden Lösungen, verhalten sind relativ gleich. Nagios hätte noch zusätzlich die Möglichkeit, RESTful via Module zu unterstützen, allerdings ist dies nicht dringend notwendig.
+
 
 <<<
 
 == Weiteres Vorgehen
-Anhand der nun evaluierten Software, kann mit der Hauptstudie vortgefahren werden. In der Hauptstudie wird genauer auf die Applikation eingegangen und bereits erste Ansätze des Designs entschieden. Da die Umsysteme alle über APIs verfügen, muss evaluiert werden ob bereits Module für die Abfrage vorhanden sind. Falls dies nicht der Fall sein sollte, müssen weitere Module entwickelt werden. 
+Anhand der nun evaluierten Software, kann mit der Hauptstudie fortgefahren werden. In der Hauptstudie wird genauer auf die Applikation eingegangen und bereits erste Ansätze des Designs entschieden. Da die Umsysteme alle über APIs verfügen, muss evaluiert werden, ob bereits Module für die Abfrage vorhanden sind. Falls dies nicht der Fall sein sollte, müssen weitere Module entwickelt werden. 
 
 Das POC Lan wird mit den evaluierten Technologien aufgewertet und miteinander verknüpft. Danach kann angefangen werden, die einzelnen Systeme abzufragen und die Auswertungen miteinander zu kombinieren.
 
@@ -620,11 +626,38 @@ Das POC Lan wird mit den evaluierten Technologien aufgewertet und miteinander ve
 
 == Freigabe
 
+{nbsp} +
+{nbsp} +
+
+.*Auftraggeber*
+Technische Berufsschule Zürich +
+Sihlquai 101 +
+8090 Zürich +
+admin.hf@tbz.zh.ch
+
+{nbsp} +
+
+.*Projektleitung*
+{nbsp} +
+{nbsp} +
+Ives Schneider +
+Binzstrasse 19 +
+8712 Stäfa +
+ives.schneider@i-401.xyz
+
+{nbsp} +
+
+.*Experte*
+{nbsp} +
+{nbsp} +
+Marco Sieber +
+marco.sieber@tbz.ch
+
 <<<
 
 == Darstellungsverzeichnis
 
-[cols="<,>",width="80%",align="center"]
+[cols="<,>",width="80%",align="center",frame="none",grid="none"]
 |=====
 | 1
 | Projekt Mitarbeiter
