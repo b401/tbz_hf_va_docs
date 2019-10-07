@@ -1,0 +1,39 @@
+= Anomalie Detection in Netzwerken: Statusbericht Nr.2
+Ives Schneider <ives.schneider@i-401.xyz>
+:doctype: pdf
+:author: Ives Schneider
+:subtitle: Statusbericht 04.10.2019
+:ntitle: Anomalie Detection in Netzwerken: {subtitle}
+:imagesdir: ./images
+:class: ITSE17a
+:pdf-stylesdir: ./resources/themes
+:pdf-fontsdir: ./resources/fonts
+:pdf-style: tbz
+:allow-uri-read:
+:sectnums:
+:title-page:
+
+<<<
+
+== Projektarbeit
+Hauptsächlich befasste ich mich seit dem letzten Statusbericht damit, die Vorstudie abzuschliessen, sowie das POC Lan mit der evaluierten Software auszurüsten.
+
+Bei der NMS Evaluation hat nun PRTG gewonnen. (Entscheidung ist ersichtlich in der Vorstudie).
+
+Des weiteren habe ich damit angefangen, die https://github.com/b401/tbz_hf_va_code[Applikation] zu programmieren. 
+Soweit ist es noch ziemlich am Anfang, da ich mehr Zeit damit verbracht habe best practices zu studieren, als produktiv am Code zu arbeiten. +
+
+Die Entwicklung wird momentan noch im Labor zu Hause vorgenommen (SNMP wird gemockt mit https://github.com/intraway/snmp_mock[SNMP Mock]) und Splunk/PRTG laufen auf einem ESXi.
+Bisher ist die featurelist noch etwas klein (einzelne SNMP Value kann abgefragt werden), allerdings werden zusätzliche feautures schnell folgen.
+
+== Reflexion
+Die restlichen Teile der Vorstudie sind relativ schnell zustande gekommen. 
+Allerdings scheint mir, dass ich mehr Zeit in die Applikation stecken muss, um die definierte Ziele alle abdecken zu können.
+
+Aufgrund hoher Arbeitslast, konnte ich leider nicht die gewünschte Zeit in das Projekt stecken. Allerdings sollte sich dies in den nächsten Tagen verbessern.
+
+== Zukünftig
+Hauptstudie sowie Applikationsprogrammierung wird mehr oder weniger aufgrund time constraints simultan erfolgen.
+Installationsanleitungen werden direkt mit Beispielen im Code geschrieben und danach generiert.
+
+Ich denke, dass ich einen grossen Teil in den Schulferien erledigen kann.
