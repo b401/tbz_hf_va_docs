@@ -1,0 +1,157 @@
+= Hauptstudie: Anomalie Detection in Netzwerken
+Ives Schneider <ives.schneider@i-401.xyz>
+:doctype: pdf
+:author: Ives Schneider
+:subtitle: Anomalie Detection in Netzwerken
+:ntitle: Hauptstudie: {subtitle}
+:imagesdir: ./images
+:class: ITSE17a
+:pdf-stylesdir: ./resources/themes
+:pdf-fontsdir: ./resources/fonts
+:pdf-style: tbz
+:allow-uri-read:
+:sectnums:
+:toc:
+:toc-title: Index
+:title-page:
+
+<<<
+
+== Management Summary
+
+== Erhebung
+
+<<<
+
+=== Netzwerk
+
+image::diagramm.pdf[]
+
+<<<
+
+== Anomalie
+
+=== Definition
+
+[quote,BSI, 'https://www.allianz-fuer-cybersicherheit.de/ACS/DE/_/downloads/BSI-CS_134.pdf[Monitoring und Anomalieerkennung in Produktionsnetzwerken]']
+Anomalien sind unerwartete Abweichungen von Regeln, im Kontext der Produktion
+also Abweichungen von "normalen Betriebszuständen". Diese treten meist in einem Fehlerfall
+auf. Sie können allerdings auch ein Hinweis auf einen Angriff bzw. eine Manipulation innerhalb eines Produktionsnetzwerkes sein. Das gilt insbesondere dann, wenn Ereignisse erstmalig
+auftreten, Prozesse sich anders verhalten oder Geräte miteinander kommunizieren, die es bisher nicht getan haben.
+
+=== Erkennung
+Die Erkennung soll anhand eines Algorithmus erfolgen. Dabei soll der Algorithmus mehrere Merkmale analysieren.
+TODO
+
+=== Einstufung
+Die Einstufung erfolgt anhand mehrerer Sicherheitsstufen mit zusätzlichen Unterstufen.
+
+*Event*::
+    - Unknown
+    - Common
+    - Important
+*Alert*::
+    - Unkown
+    - Common
+    - Important
+*Incident*::
+    - Unknown
+    - Common
+    - Important
+
+<<<
+
+==== Event
+
+Events sind normale Meldungen welche nicht auf schwerwiegende Anomalien hindeuten. +
+z.Bsp. Hoher Netzwerkspike ohne zusätzliche Anomalien.
+Beispiel:
+[NOTE]
+High Bandwith: {IP}
+
+==== Alert
+Meldungen welche auf Downtime oder neue Geräte hinweisen. Allerdings ohne zusätzliche Informationen +
+Beispiel:
+
+[CAUTION]
+New device found: {IP} {MAC}
+
+==== Incident
+Anomalien welche auf lateral movement hinweisen könnten.
+Beispiel:
+[WARNING]
+New Port: {PORT} on {IP}
+
+== Baseline
+Die Baseline wird mithilfe von PRTG erstellt. +
+TODO
+
+=== Netzwerk
+TODO
+
+=== Load
+TODO
+
+<<<
+
+== Applikation
+Die Applikation welche unter dem Namen "Nidhogg" entwickelt wird, soll als Anlaufstelle für Anomalieerkennungen dienen. +
+Anhand diversen Merkmalen, soll erkannt werden, ob eine gemeldete Abweichung sich um eine Anomalie handelt welche genauer untersucht werden soll, oder aber um eine Abweichung, welche nicht weiterverfolgt werden muss.
+
+Zugegriffen wird dabei auf folgende Möglichkeiten mit den Umsystemen zu kommunizieren.
+
+.Protokolle
+- ICMP
+- SNMP
+- HTTP
+- ARP
+
+Es wird versucht den Code möglichst low-level zu halten um die Performance der Umsysteme möglichs wenig zu beeinträchtigen.
+
+=== Technology
+Die Applikation wird in Rust geschrieben. Dies ermöglicht es, sicheren Quellcode zu schreiben ohne dabei Geschwindigkeit zu verlieren. +
+Von grossem belangen wird hierbei der Borrowchecker, lifetimes sowie das Secure Memory Management um die Applikation möglichst erweiterbar und ressourcenschonend zu schreiben.
+
+=== Architektur
+
+image::arch.png[Architektur,width="450",align="center"]
+
+=== Diagramme
+TODO
+
+=== Implementation
+TODO
+
+== Weiteres vorgehen
+TODO
+
+=== Installation
+TODO
+
+=== Konfiguration
+TODO
+
+== Controlling
+TODO
+
+=== Testing
+TODO
+
+== Kosten
+TODO
+
+== Reflextion
+TODO
+
+== Freigabe
+TODO
+
+== Anhang
+TODO
+
+=== Installationsdokumentation
+TODO
+
+=== Wartungsdokumentation
+TODO
+
