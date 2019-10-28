@@ -1,0 +1,11 @@
+portspecs:
+  - name: artoria
+    ports:
+      - id: 22
+        state: open
+  - name: splunk
+    ports:
+      - id: 22
+        state: open
+      - id: 8080
+        state: open

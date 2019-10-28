@@ -24,8 +24,10 @@ Ives Schneider <ives.schneider@i-401.xyz>
 <<<
 
 === Netzwerk
+TODO
 
-image::diagramm.pdf[]
+==== Baseline
+TODO
 
 <<<
 
@@ -41,25 +43,116 @@ auftreten, Prozesse sich anders verhalten oder Geräte miteinander kommunizieren
 
 === Erkennung
 Die Erkennung soll anhand eines Algorithmus erfolgen. Dabei soll der Algorithmus mehrere Merkmale analysieren.
-TODO
+Grundsätzlich ist die Frage zu klären, wie eine standardmässige Kill Chain aussieht und mit welchen Massnahmen welche Schritte erkennen könnte.
 
-=== Einstufung
-Die Einstufung erfolgt anhand mehrerer Sicherheitsstufen mit zusätzlichen Unterstufen.
+=== Kill-Chain
 
-*Event*::
-    - Unknown
-    - Common
-    - Important
-*Alert*::
-    - Unkown
-    - Common
-    - Important
-*Incident*::
-    - Unknown
-    - Common
-    - Important
+==== Reconnaissance
+
+.**Beschreibung**
+In dieser Phase werden weitere Informationen über das Ziel beschaft. +
+Während dieser Phase, befindet sich der Angreiffer meist noch ausserhalb des zu angreifenden Netzwerkes. +
+Allerdings ist Reconnaissance eine wiederholende Phase, welche während des gesamten Angriffs vortbeständig durchgeführt wird.
+
+.**Erkennung**
+Solange sich der Angreiffer ausserhalb des Netzwerkes befindet, gibt es nur eine limitierte Anzahl an Erkennungsmassnahmen. +
+Da der Scope der Applikation eher auf eine interne Erkennung liegt, wird dies auch nicht weiter verfolgt. +
+
+Intern hingegen, wird anhand eines passiven/aktiven ARP-Request Scannings das Netzwerk nach neuen Hosts durchsucht. Sollte ein neuer Host entdeckt werden, wird der Administrator via Mail auf die neue MAC Adresse aufmerksam gemacht.
 
 <<<
+
+==== Weaponization
+
+.**Beschreibung**
+Der Angreiffer beschafft sich einen Exploit, welcher für die gefunden Schwachstelle in Phase I zugeschnitten ist. Die Art des Exploits spielt dabei keine Rolle.
+
+.**Erkennung**
+Es gibt mehrere Möglichkeiten einen Exploit zu erkennen. Ein relativ neuer Ansatz ist mit sogenannten https://virustotal.github.io/yara/[YARA]. +
+Hierbei wird anhand bestimmter Regeln der Datenfluss analysiert und bei einer gewissen String-Abfolge entschieden, ob sich die Datei innerhalb der Known Malware Liste befindet. +
+
+Für die Applikation wurde bewusst entschieden, auf eine zu intrusiven Netzwerkerkennung zu verzichten. Daher kann diese Phase nicht erkannt werden.
+
+
+==== Delivery
+
+.**Beschreibung**
+Der Exploit aus Phase II wird zum Ziel übermittelt. (Beispielsweise via E-Mail, Website etc.)
+Diese Phase ist einer der Keypunkte, einen Angriff erfolgreich zu verhindern. +
+Da die Phasen I und II sich ausserhalb des eigenen Netzwerkes befindet, besteht kein Kontakt mit dem Angreiffer. Ab Phase III wird die Kommunikation mit mindestens einem Teil der Organisation aufgenommen.
+
+.**Erkennung**
+Da die Kommunikation bewusst nicht überwacht wird, besteht hier keine Erkennungschance.
+
+
+==== Exploitation
+
+.**Beschreibung**
+Malware wird ausgeführt und folgt der eingebauten Logik ab.
+
+.**Erkennung**
+Angriffe welche gezielt durchgeführt werden, setzen meist auf einen der folgende vorgehensweisen:
+
+1. E-Mail Attachement
+2. Dropper
+3. Download additional Malware
+4. Foothold
+
+[start=1]
+1. Exploit
+2. Reverse shell
+3. Foothold
+
+[start=1]
+1. Exploit
+2. Binding shell
+3. Foothold
+
+Die Applikation spezialisiert sich eher auf Erkennung und nicht auf Verhinderung. +
+Allerdings wird mithilfe des Portscanners die Binding shell erkannt werden. +
+Dropper + Reverse Shell können leider nicht erkannt werden.
+
+==== Installation
+
+.**Beschreibung**
+Zusätzlicher Backdoor wird auf dem Zielsystem installiert (foothold). +
+Dies ermöglicht dem Angreiffer neue Verbindungen und weitere Kommandos der Malware zu senden.
+
+.**Erkennung**
+Es gibt viele massnahmen, wie man ein Backdoor erzeugen kann. Die Applikation soll die Möglichkeit haben, mindestens eine davon zu erkennen.
+
+.Erkennung
+[cols="<,<",align=center,width=50%,grid=none,frame=none]
+|===
+| **Technik** | **Wird erkannt**
+| Reverse Shell | -
+| Binding Shell | x
+| DNS backdoor | -
+| CnC Server | -
+|===
+
+==== Command and Control
+
+.**Beschreibung**
+CnC Server sendet Malware neue Instruktionen und ermöglicht dem Angreiffer, Informationen aus dem Netzwerk zu ziehen.
+
+.**Erkennung**
+Siehe Phase "Installation"
+
+==== Actions on Objective
+.**Beschreibung**
+Schritte zur Erfüllung des Ziels des Angreiffers werden durchgeführt. +
+Dies kann von Vernichtung von Daten beinahlten (selten) bis hin zu Datendiebstahl.
+
+.**Erkennung**
+Grundsäþzlich kann anhand der PRTG Auswertungen erkannt werden, ob zusätzliche Daten zu ungewöhnlichen Zeiten versendet werden.
+
+<<<
+
+
+=== Einstufung
+Die Einstufung erfolgt anhand mehrerer Sicherheitsstufen mit zusätzlichen Unterstufen. +
+Je nach Einstufung werden verschiedene Massnahmen getroffen.
 
 ==== Event
 
@@ -81,6 +174,30 @@ Anomalien welche auf lateral movement hinweisen könnten.
 Beispiel:
 [WARNING]
 New Port: {PORT} on {IP}
+
+=== Algorithmen
+Für die Anomalie Erkennung wird auf mehrere Algorithmen zurückgegriffen welche im Hintergrund laufen sollen.
+
+==== New Host
+Falls der ARP-Request Sensor einen neuen Host im Netzwerk finden sollte, wird folgender Workflow ausgelöst.
+
+//image::arp.png[]
+
+Die Geschwindigkeit der Erkennung ist Netzwerkgrössen abhängig.
+
+==== New open Port
+Durch die Konfiguration sollen offene Ports anhand einer Whitelist definiert werden. +
+Falls sich der Status des Hosts ändern sollte, wird der Workflow ausgeführt.
+//image::nmap.png[]
+
+==== Splunk failures
+Da Splunk in der Vorstudie definiert wurde, soll Splunk via seinem HTTP-API angefragt werden können, ob bestimmte Änderungen geloggt wurden.
+//image::splunk.png[]
+
+==== PRTG Meldung
+PRTG besitzt die möglichkeit, über sogenannte Notification Gruppen, Nachrichten an einen HTTP-Endpoint zu senden. +
+Nidhogg übernimmt hier eine passive Rolle und wartet auf Calls an den REST-Endpoint.
+//image::prtg.png[]
 
 == Baseline
 Die Baseline wird mithilfe von PRTG erstellt. +
@@ -112,9 +229,26 @@ Es wird versucht den Code möglichst low-level zu halten um die Performance der 
 Die Applikation wird in Rust geschrieben. Dies ermöglicht es, sicheren Quellcode zu schreiben ohne dabei Geschwindigkeit zu verlieren. +
 Von grossem belangen wird hierbei der Borrowchecker, lifetimes sowie das Secure Memory Management um die Applikation möglichst erweiterbar und ressourcenschonend zu schreiben.
 
-=== Architektur
+<<<
 
-image::arch.png[Architektur,width="450",align="center"]
+=== Architektur
+Nidhogg wird in einer einfachen 3-Tier Architektur entwickelt. +
+Die einzelnen Layers beziehen sich auf die Abschnitte des Programms. +
+
+Als Datenlayer wurde entschieden SQLite zu verwenden. +
+Natürlich kann argumentiert werden, dass lieber mysql/maria db etc. verwendet werde sollte. +
+Allerdings besteht bereits ein Programm von welchem ich die Funktionalität wiederverwenden kann.
+
+.**First Tier**
+Webinterface
+
+.**Second Tier**
+jProgramm Logik
+
+.**Third Tier**
+SQLite
+
+image::arch.png[Architektur,align="center"]
 
 === Diagramme
 TODO
@@ -126,10 +260,40 @@ TODO
 TODO
 
 === Installation
-TODO
+Um die Installation möglichst einfach zu halten, soll Nidhogg einfach über CLI installiert werden können. +
+Unter Linux wird dies mithilfe des .deb Formates zustandegebracht. +
+Windows Systeme werden eine portable Binary erhalten.
+
 
 === Konfiguration
-TODO
+Einstellungen werden via eines YAML Files vorgenommen. +
+Um möglichst flexibel zu bleiben, werden Default Einstellungen mit der Applikation mitgebracht.
+
+.**config.yml**
+[source,yaml]
+----
+include::src/config.yml[]
+----
+
+<<<
+
+.**Mappings.xml**
+Da ausserhalb der Hauptkonfiguration, ebenfalls noch Einstellungen für die wiederholende Portscan-Funktion gemacht werden muss, kommen zwei zusätzliche Konfigurationsdateien hinzu.
+
+[source,xml]
+----
+include::src/mappings.xml[]
+----
+
+
+.**porspec.yml**
+Die Portspec Datei wird dafür genutzt, Hosts aus dem Mappings.xml, mit den Einstellungen der Ports zu verbinden.
+
+[source,yaml]
+----
+include::src/portspecs.yml[]
+----
+
 
 == Controlling
 TODO
@@ -138,20 +302,28 @@ TODO
 TODO
 
 == Kosten
-TODO
+Die Kosten belaufen sich auf die aufgewendete Arbeistzeit. +
+Da die Entwicklung mit OpenSource Modulen in einer Sprache welche, unter MIT Lizenziert, entwickelt wurde, steht es frei die Applikation für nicht kommerzielle zwecke zu verwenden. +
+
+Da das POC-Netzwerk relativ klein gehalten wurde, entstehen auch keine Kosten in sachen Log-Collector bzw. NMS.
 
 == Reflextion
 TODO
 
+<<<
+
 == Freigabe
 TODO
+<<<
 
 == Anhang
-TODO
+<<<
 
 === Installationsdokumentation
 TODO
+//include::installationsdokumentation.adoc[]
 
 === Wartungsdokumentation
 TODO
+//include::wartungsdokumentation.adoc[]
 
