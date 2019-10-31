@@ -616,7 +616,7 @@ Die APIs der beiden Lösungen, verhalten sind relativ gleich. Nagios hätte noch
 <<<
 
 == Weiteres Vorgehen
-Anhand der nun evaluierten Software, kann mit der Hauptstudie fortgefahren werden. In der Hauptstudie wird genauer auf die Applikation eingegangen und bereits erste Ansätze des Designs entschieden. Da die Umsysteme alle über APIs verfügen, muss evaluiert werden, ob bereits Module für die Abfrage vorhanden sind. Falls dies nicht der Fall sein sollte, müssen weitere Module entwickelt werden. 
+Anhand der nun evaluierten Software, kann mit der Hauptstudie fortgefahren werden. In der Hauptstudie wird genauer auf die Applikation eingegangen und bereits erste Ansätze des Designs entschieden. Da die Umsysteme alle über APIs verfügen, muss evaluiert werden, ob bereits Module für die Abfrage vorhanden sind. Falls dies nicht der Fall sein sollte, müssen weitere Module entwickelt werden.
 
 Das POC Lan wird mit den evaluierten Technologien aufgewertet und miteinander verknüpft. Danach kann angefangen werden, die einzelnen Systeme abzufragen und die Auswertungen miteinander zu kombinieren.
 
@@ -665,7 +665,7 @@ marco.sieber@tbz.ch
 | Präferenzmatrix
 | 3
 | Systemgrenzen
-| 4 
+| 4
 | Flowchart einer Reaktion
 | 5
 | Risikomatrix

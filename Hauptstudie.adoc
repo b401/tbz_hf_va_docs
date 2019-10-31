@@ -15,21 +15,38 @@ Ives Schneider <ives.schneider@i-401.xyz>
 :toc-title: Index
 :title-page:
 
-<<<
-
 == Management Summary
+Anhand der, in der Vorstudie evaluierten Softwarelösungen Splunk und PRTG, wird eine Softwarearchitektur definiert, welche im weiteren vorgehen zu entwickeln ist. +
+Die Applikation nimmt dabei Anspruch auf die bereitgestellten Funktionalitäten der beiden genannten Lösungen. +
 
-== Erhebung
+In der Hauptstudie soll definiert werden, mit welcher Architektur und mit welchen Fähigkeiten eine Applikation ausgerüstet werden muss, um gewissen Anomalien erkennen zu können.
+Zusätzlich wurde mithilfe des MITRE ATT&CK Frameworks ermittelt, wie und welche Angriffe normalerweise durchgeführt werden.
+
+.**Features**
+Anhand der Architektur bestehen folgende kontinuierlichen Möglichkeiten, Anomalien zu erkennen:
+
+- Erkennung neuer Hosts
+- Veränderungen von Netzwerkservices
+- Fehlgeschlagene Loginversuche
+- Gezielte Überwachung von gewünschten Zielen
+
+.**Kosten**
+Da es sich um ein komplett Open-Source Projekt handelt (minus Splunk+PRTG), entstehen ausser der aufgewendeten Arbeitszeit keine zusätzliche Kosten.
+
+.**Projekt**
+Im laufe der Hauptstudie wurde entschieden, die Testumgebung (POC-Lan) auf eine virtuelle Umgebung zu verschieben. +
+Dies ersparrt zusätzlichen aufwand, die Hardwareumgebung nachträglich mit Splunk auszurüsten.
+
+Innerhalb diese Dokuments wird die Applikation fortlaufend mit ihrem Projektnamen (**Nidhogg**) bezeichnet.
 
 <<<
 
-=== Netzwerk
-TODO
+== Änderungen aus der Vorstudie
+=== POC-LAN
+Aufgrund Hardwarefailures muss leider auf die bestehende Infrastruktur versichtet werden. +
+Daher wurde eine virtuelle Infrastruktur mithilfe Ansible und Terraform erstellt. +
 
-==== Baseline
-TODO
-
-<<<
+Falls das POC-Netzwerk nachgebaut werden will, kann das Ansible Playbook und das Terraform Script https://github.com/b401/nidhogg/poc-lan[hier] gefunden werden.
 
 == Anomalie
 
@@ -45,7 +62,14 @@ auftreten, Prozesse sich anders verhalten oder Geräte miteinander kommunizieren
 Die Erkennung soll anhand eines Algorithmus erfolgen. Dabei soll der Algorithmus mehrere Merkmale analysieren.
 Grundsätzlich ist die Frage zu klären, wie eine standardmässige Kill Chain aussieht und mit welchen Massnahmen welche Schritte erkennen könnte.
 
+<<<
+
 === Kill-Chain
+Eine Kill-Chain beschreibt wie ein Angreiffer normalerweise Zugang und Foothold in einem Netzwerk bekommt. +
+Um einen klaren Überblick für die Möglichkeiten zu erhalten, wie eine Anomalie erkannt werden kann, wird auf das Mitre ATT&CK Framework zurückgegriffen, welche die einzelnen Phasen beschreibt.
+
+.https://attack.mitre.org/ - Killchain
+image::Intrusion_Kill_Chain_-_v2.png[https://attack.mitre.org/,align=center,Mitre]
 
 ==== Reconnaissance
 
@@ -56,7 +80,7 @@ Allerdings ist Reconnaissance eine wiederholende Phase, welche während des gesa
 
 .**Erkennung**
 Solange sich der Angreiffer ausserhalb des Netzwerkes befindet, gibt es nur eine limitierte Anzahl an Erkennungsmassnahmen. +
-Da der Scope der Applikation eher auf eine interne Erkennung liegt, wird dies auch nicht weiter verfolgt. +
+Da der Scope von Nidhogg eher auf eine interne Erkennung liegt, wird dies auch nicht weiter verfolgt. +
 
 Intern hingegen, wird anhand eines passiven/aktiven ARP-Request Scannings das Netzwerk nach neuen Hosts durchsucht. Sollte ein neuer Host entdeckt werden, wird der Administrator via Mail auf die neue MAC Adresse aufmerksam gemacht.
 
@@ -68,10 +92,10 @@ Intern hingegen, wird anhand eines passiven/aktiven ARP-Request Scannings das Ne
 Der Angreiffer beschafft sich einen Exploit, welcher für die gefunden Schwachstelle in Phase I zugeschnitten ist. Die Art des Exploits spielt dabei keine Rolle.
 
 .**Erkennung**
-Es gibt mehrere Möglichkeiten einen Exploit zu erkennen. Ein relativ neuer Ansatz ist mit sogenannten https://virustotal.github.io/yara/[YARA]. +
+Es gibt mehrere Möglichkeiten einen Exploit zu erkennen. Ein relativ neuer Ansatz ist mit sogenannten https://virustotal.github.io/yara/[YARA] Regeln. +
 Hierbei wird anhand bestimmter Regeln der Datenfluss analysiert und bei einer gewissen String-Abfolge entschieden, ob sich die Datei innerhalb der Known Malware Liste befindet. +
 
-Für die Applikation wurde bewusst entschieden, auf eine zu intrusiven Netzwerkerkennung zu verzichten. Daher kann diese Phase nicht erkannt werden.
+Für Nidhogg wurde bewusst entschieden, auf eine zu intrusiven Netzwerkerkennung zu verzichten. Daher kann diese Phase nicht erkannt werden.
 
 
 ==== Delivery
@@ -84,6 +108,9 @@ Da die Phasen I und II sich ausserhalb des eigenen Netzwerkes befindet, besteht 
 .**Erkennung**
 Da die Kommunikation bewusst nicht überwacht wird, besteht hier keine Erkennungschance.
 
+INPORTANT: Die Kommunikation und Host Überwachung wird auf Splunk + PRTG ausgelagert.
+
+<<<
 
 ==== Exploitation
 
@@ -108,9 +135,12 @@ Angriffe welche gezielt durchgeführt werden, setzen meist auf einen der folgend
 2. Binding shell
 3. Foothold
 
-Die Applikation spezialisiert sich eher auf Erkennung und nicht auf Verhinderung. +
-Allerdings wird mithilfe des Portscanners die Binding shell erkannt werden. +
-Dropper + Reverse Shell können leider nicht erkannt werden.
+Nidhogg spezialisiert sich eher auf Erkennung und nicht auf Verhinderung. +
+Allerdings wird mithilfe des Portscanners würde eine Binding shell erkannt werden. +
+
+CAUTION: Dropper + Reverse Shell können leider nicht erkannt werden.
+
+<<<
 
 ==== Installation
 
@@ -119,7 +149,7 @@ Zusätzlicher Backdoor wird auf dem Zielsystem installiert (foothold). +
 Dies ermöglicht dem Angreiffer neue Verbindungen und weitere Kommandos der Malware zu senden.
 
 .**Erkennung**
-Es gibt viele massnahmen, wie man ein Backdoor erzeugen kann. Die Applikation soll die Möglichkeit haben, mindestens eine davon zu erkennen.
+Es gibt viele möglichkeiten wie man ein Backdoor einrichten kann. Nidhogg soll die Möglichkeit haben, mindestens eine davon zu erkennen.
 
 .Erkennung
 [cols="<,<",align=center,width=50%,grid=none,frame=none]
@@ -145,14 +175,14 @@ Schritte zur Erfüllung des Ziels des Angreiffers werden durchgeführt. +
 Dies kann von Vernichtung von Daten beinahlten (selten) bis hin zu Datendiebstahl.
 
 .**Erkennung**
-Grundsäþzlich kann anhand der PRTG Auswertungen erkannt werden, ob zusätzliche Daten zu ungewöhnlichen Zeiten versendet werden.
+Grundsätzlich kann anhand der PRTG Auswertungen erkannt werden, ob zusätzliche Daten zu ungewöhnlichen Zeiten versendet werden.
 
 <<<
 
 
 === Einstufung
-Die Einstufung erfolgt anhand mehrerer Sicherheitsstufen mit zusätzlichen Unterstufen. +
-Je nach Einstufung werden verschiedene Massnahmen getroffen.
+Je nach Art des Alerts, soll eine gewisse Abfolge innerhalb von Nidhogg durchgeführt werden.
+Da es um eine Anomalie-Erkennung gehen wird, muss schlussendlich ein Administrator selbst entscheiden, wie schwerwiegend die gemeldete Informationen der Unternehmung schaden können.
 
 ==== Event
 
@@ -175,44 +205,78 @@ Beispiel:
 [WARNING]
 New Port: {PORT} on {IP}
 
+<<<
+
 === Algorithmen
 Für die Anomalie Erkennung wird auf mehrere Algorithmen zurückgegriffen welche im Hintergrund laufen sollen.
 
 ==== New Host
-Falls der ARP-Request Sensor einen neuen Host im Netzwerk finden sollte, wird folgender Workflow ausgelöst.
+Neue Hosts können auf einen Angreiffer hindeuten, welcher einen freien Netzwerkport gefunden hat. +
+Leider ist diese Variante für grössere Netzwerke, nicht einfach maintable, da die Anzahl Hosts massiv höher ist. +
 
-//image::arp.png[]
+Nidhogg soll in der lage sein, Administratoren über neue Hosts innerhalb eines definierten Netzwerkabschnitts zu informieren. +
 
-Die Geschwindigkeit der Erkennung ist Netzwerkgrössen abhängig.
+Somit kann die visibility massiv erhöht werden, welcher Administratoren einfacheren durchblick über die Netzwerkinfrastruktur erbringt. +
+Da im POC Netzwerk die Hostanzahl begrenzt ist, wird auf eine PDO Verbindung verzichtet.
 
-==== New open Port
+{nbsp} +
+{nbsp} +
+
+.ARP-Change
+image::arp_change.png[align=center]
+
+IMPORTANT: Die Geschwindigkeit der Erkennung ist netzwerkgrössen abhängig.
+
+<<<
+
+==== Portzustand
 Durch die Konfiguration sollen offene Ports anhand einer Whitelist definiert werden. +
 Falls sich der Status des Hosts ändern sollte, wird der Workflow ausgeführt.
-//image::nmap.png[]
+
+.Änderung eines Portzustandes
+image::port_change.png[align=center,width=250px]
 
 ==== Splunk failures
-Da Splunk in der Vorstudie definiert wurde, soll Splunk via seinem HTTP-API angefragt werden können, ob bestimmte Änderungen geloggt wurden.
-//image::splunk.png[]
+Da Splunk in der Vorstudie definiert wurde, soll Splunk via seinem HTTP-API angefragt werden können, ob bestimmte Änderungen geloggt wurden. +
+Die Checks sollen auf Reaktion eines anderen Alarms getätigt werden und somit die Benachrichtigungen verfeinern.
+
+<<<
 
 ==== PRTG Meldung
 PRTG besitzt die möglichkeit, über sogenannte Notification Gruppen, Nachrichten an einen HTTP-Endpoint zu senden. +
-Nidhogg übernimmt hier eine passive Rolle und wartet auf Calls an den REST-Endpoint.
-//image::prtg.png[]
+Nidhogg übernimmt hier eine passive Rolle und wartet auf calls an den REST-Endpoint. +
 
-== Baseline
-Die Baseline wird mithilfe von PRTG erstellt. +
-TODO
+Die ermöglicht es, nicht nur für PRTG verfügbar zu sein, sondern könnte auch via Icinga oder andere NMS angesprochen werden.
+
+{nbsp} +
+{nbsp} +
+
+.PRTG Meldungen
+image::prtg_change.png[align=center,width=250px]
+
+<<<
 
 === Netzwerk
-TODO
+Das POC-Netzwerk wird bewusst etwas kleiner gehalten. +
+Bestehend aus folgenden Services:
+
+- PRTG
+- Splunk
+- NGINX (DVWA)
+- Nidhogg
+
+Wird eine kleine Infrastruktur simuliert, welche leicht anzugreiffen ist.
+
+.Netzwerkdiagram
+image::netzwerk_diagram.png[align=center]
 
 === Load
-TODO
+Load wird mithilfe https://nmap.org/nping/[Nping] generiert. +
 
 <<<
 
 == Applikation
-Die Applikation welche unter dem Namen "Nidhogg" entwickelt wird, soll als Anlaufstelle für Anomalieerkennungen dienen. +
+Nidhogg soll als Anlaufstelle für Anomalieerkennungen dienen. +
 Anhand diversen Merkmalen, soll erkannt werden, ob eine gemeldete Abweichung sich um eine Anomalie handelt welche genauer untersucht werden soll, oder aber um eine Abweichung, welche nicht weiterverfolgt werden muss.
 
 Zugegriffen wird dabei auf folgende Möglichkeiten mit den Umsystemen zu kommunizieren.
@@ -226,8 +290,8 @@ Zugegriffen wird dabei auf folgende Möglichkeiten mit den Umsystemen zu kommuni
 Es wird versucht den Code möglichst low-level zu halten um die Performance der Umsysteme möglichs wenig zu beeinträchtigen.
 
 === Technology
-Die Applikation wird in Rust geschrieben. Dies ermöglicht es, sicheren Quellcode zu schreiben ohne dabei Geschwindigkeit zu verlieren. +
-Von grossem belangen wird hierbei der Borrowchecker, lifetimes sowie das Secure Memory Management um die Applikation möglichst erweiterbar und ressourcenschonend zu schreiben.
+Nidhogg wird in Rust geschrieben. Dies ermöglicht es, sicheren Quellcode zu schreiben ohne dabei Geschwindigkeit zu verlieren. +
+Von grossem belangen wird hierbei der Borrowchecker, lifetimes sowie das Secure Memory Management um Nidhogg möglichst erweiterbar und ressourcen schonend zu schreiben.
 
 <<<
 
@@ -243,33 +307,48 @@ Allerdings besteht bereits ein Programm von welchem ich die Funktionalität wied
 Webinterface
 
 .**Second Tier**
-jProgramm Logik
+Programm Logik
 
 .**Third Tier**
 SQLite
 
+.Nidhogg Architektur
 image::arch.png[Architektur,align="center"]
 
-=== Diagramme
-TODO
+== Abhängigkeiten
+Aufgrund des relativ jungen alters von Rust, werden viele Libraries, welche in anderen Sprachen verfügbar wären, nicht existieren. +
+Dies bedeutet, dass einige Module selbst geschrieben werden müssen oder bereits bestehende Module auf die Funktionalität zugeschnitten werden muss. +
 
-=== Implementation
-TODO
+Allerdings kann bereits auf einige Abhängigkeiten eingegangen werden, welche benötigt werden:
 
-== Weiteres vorgehen
-TODO
+.Abhängigkeiten
+[cols="1,1,2,2",align=center,grid=none,frame=none]
+|=====
+| **Abhängigkeit** | **Version** | **Grund** | **URL**
+| Nmap | latest | Portscanning | https://nmap.org/[nmap]
+| libpcap | latest | Arpscanning | https://www.tcpdump.org/[libpcap]
+| serde | 1.0.102 | (de)serializiation | https://serde.rs/[serde]
+|actix_web | 1.0.8 | Webinterface/RESTful | https://actix.rs/[actix]
+|=====
+
 
 === Installation
 Um die Installation möglichst einfach zu halten, soll Nidhogg einfach über CLI installiert werden können. +
 Unter Linux wird dies mithilfe des .deb Formates zustandegebracht. +
-Windows Systeme werden eine portable Binary erhalten.
+Windows Systeme werden eine portable Binary erhalten. +
+
+Die komplette Installationsdokumentation wird in eigenem Dokument mitgeliefert.
 
 
 === Konfiguration
-Einstellungen werden via eines YAML Files vorgenommen. +
-Um möglichst flexibel zu bleiben, werden Default Einstellungen mit der Applikation mitgebracht.
+Einstellungen sollen via eines YAML Files vorgenommen werden können. +
+Um möglichst flexibel zu bleiben, sollen default Einstellungen mit Nidhogg mitinstalliert.
 
-.**config.yml**
+Wichtig ist es, dass einzelne Funktionalitäten deaktiviert werden können. +
+
+Ein erster Draft ist bereits verfügbar:
+
+.**config_draft.yml**
 [source,yaml]
 ----
 include::src/config.yml[]
@@ -277,7 +356,7 @@ include::src/config.yml[]
 
 <<<
 
-.**Mappings.xml**
+.**Mappings_draft.xml**
 Da ausserhalb der Hauptkonfiguration, ebenfalls noch Einstellungen für die wiederholende Portscan-Funktion gemacht werden muss, kommen zwei zusätzliche Konfigurationsdateien hinzu.
 
 [source,xml]
@@ -286,7 +365,7 @@ include::src/mappings.xml[]
 ----
 
 
-.**porspec.yml**
+.**porspec_draft.yml**
 Die Portspec Datei wird dafür genutzt, Hosts aus dem Mappings.xml, mit den Einstellungen der Ports zu verbinden.
 
 [source,yaml]
@@ -294,26 +373,108 @@ Die Portspec Datei wird dafür genutzt, Hosts aus dem Mappings.xml, mit den Eins
 include::src/portspecs.yml[]
 ----
 
+Der komplette Konfigurationsumfang wird in eigenem Dokument mitgeliefert.
 
 == Controlling
-TODO
+Die Vollumfänglichkeit der gesetzten Ziele wird innehalb dieses Kapitels getestet und angeschaut. +
+Tests werden innerhalb des neu definierten POC-Netzwerks in einer kontrollierten Umgebung durchgeführt.
 
-=== Testing
-TODO
+Test und Controlling wird in einem eigenem Dokument mitgeliefert.
+
 
 == Kosten
 Die Kosten belaufen sich auf die aufgewendete Arbeistzeit. +
 Da die Entwicklung mit OpenSource Modulen in einer Sprache welche, unter MIT Lizenziert, entwickelt wurde, steht es frei die Applikation für nicht kommerzielle zwecke zu verwenden. +
 
-Da das POC-Netzwerk relativ klein gehalten wurde, entstehen auch keine Kosten in sachen Log-Collector bzw. NMS.
+Da das POC-Netzwerk relativ klein gehalten wurde, entstehen auch keine Kosten in Sachen Log-Collector bzw. NMS.
 
-== Reflextion
-TODO
+<<<
+
+== Weiteres Vorgehen
+Grundlegende Informationen sind soweit alle Vorhanden um mit der Erstellung von Nidhogg zu beginnen. +
+Da es wesentlich mehr Faktoren benötigt, als anfangs angenommen, wird die Applikation in kleinere Pakete aufgeteilt und via Workspaces zusammengefasst.
+
+{nbsp} +
+{nbsp} +
+
+.Weiteres Vorgehen
+image::vorgehen.png[align=center]
 
 <<<
 
 == Freigabe
-TODO
+{nbsp} +
+{nbsp} +
+
+.*Auftraggeber*
+Technische Berufsschule Zürich +
+Sihlquai 101 +
+8090 Zürich +
+admin.hf@tbz.zh.ch
+
+{nbsp} +
+
+.*Projektleitung*
+{nbsp} +
+{nbsp} +
+Ives Schneider +
+Binzstrasse 19 +
+8712 Stäfa +
+ives.schneider@i-401.xyz
+
+{nbsp} +
+
+.*Experte*
+{nbsp} +
+{nbsp} +
+Marco Sieber +
+marco.sieber@tbz.ch
+
+<<<
+
+== Darstellungsverzeichnis
+{nbsp} +
+{nbsp} +
+
+[cols="<,<",width="80%",align="center",frame="none",grid="none"]
+|=====
+| Figur. 1
+| Killchain
+| Figur. 2
+| ARP-Change
+| Figur. 3
+| Änderung eines Portzustandes
+| Figur. 4
+| PRTG Meldungen
+| Figur. 5
+| Netzwerkdiagram
+| Figur. 6
+| Nidhogg Architektur
+| Figur. 7
+| Weiteres Vorgehen
+|=====
+{nbsp} +
+{nbsp} +
+{nbsp} +
+{nbsp} +
+
+== Glossar
+
+{nbsp} +
+{nbsp} +
+
+
+.*NMS*
+Network Monitoring System - Überwachungssystem
+{nbsp} +
+
+.*POC*
+Proof of concept - Konzeptbeweise
+{nbsp} +
+
+.*Kill-Chain*
+Phasen eines Angriffs
+
 <<<
 
 == Anhang
@@ -327,3 +488,7 @@ TODO
 TODO
 //include::wartungsdokumentation.adoc[]
 
+=== Testing & Controlling
+TODO
+//include::testing.adoc[]
+//include::controlling.adoc[]
