@@ -16,10 +16,10 @@ Ives Schneider <ives.schneider@i-401.xyz>
 :title-page:
 
 == Management Summary
-Anhand der, in der Vorstudie evaluierten Softwarelösungen Splunk und PRTG, wird eine Softwarearchitektur definiert, welche im weiteren vorgehen zu entwickeln ist. +
+Anhand der, in der Vorstudie evaluierten Softwarelösungen Splunk und PRTG, wird eine Softwarearchitektur definiert, welche im Weiteren Vorgehen zu entwickeln ist. +
 Die Applikation nimmt dabei Anspruch auf die bereitgestellten Funktionalitäten der beiden genannten Lösungen. +
 
-In der Hauptstudie soll definiert werden, mit welcher Architektur und mit welchen Fähigkeiten eine Applikation ausgerüstet werden muss, um gewissen Anomalien erkennen zu können.
+In der Hauptstudie soll definiert werden, mit welcher Architektur und mit welchen Fähigkeiten eine Applikation Ausgerüstet werden muss, um gewissen Anomalien erkennen zu können.
 Zusätzlich wurde mithilfe des MITRE ATT&CK Frameworks ermittelt, wie und welche Angriffe normalerweise durchgeführt werden.
 
 .**Features**
@@ -31,19 +31,19 @@ Anhand der Architektur bestehen folgende kontinuierlichen Möglichkeiten, Anomal
 - Gezielte Überwachung von gewünschten Zielen
 
 .**Kosten**
-Da es sich um ein komplett Open-Source Projekt handelt (minus Splunk+PRTG), entstehen ausser der aufgewendeten Arbeitszeit keine zusätzliche Kosten.
+Da es sich um ein komplett Open-Source-Projekt handelt (minus Splunk+PRTG), entstehen ausser der aufgewendeten Arbeitszeit keine zusätzlichen Kosten.
 
 .**Projekt**
-Im laufe der Hauptstudie wurde entschieden, die Testumgebung (POC-Lan) auf eine virtuelle Umgebung zu verschieben. +
-Dies ersparrt zusätzlichen aufwand, die Hardwareumgebung nachträglich mit Splunk auszurüsten.
+Im Laufe der Hauptstudie wurde entschieden, die Testumgebung (POC-Lan) auf eine virtuelle Umgebung zu verschieben.
+Dies erspart zusätzlichen aufwand, die Hardwareumgebung nachträglich mit Splunk auszurüsten.
 
-Innerhalb diese Dokuments wird die Applikation fortlaufend mit ihrem Projektnamen (**Nidhogg**) bezeichnet.
+Innerhalb dieses Dokuments wird die Applikation fortlaufend mit ihrem Projektnamen (**Nidhogg**) bezeichnet.
 
 <<<
 
 == Änderungen aus der Vorstudie
 === POC-LAN
-Aufgrund Hardwarefailures muss leider auf die bestehende Infrastruktur versichtet werden. +
+Aufgrund eines Hardwarefailures muss leider auf die bestehende Infrastruktur verzichtet werden. +
 Daher wurde eine virtuelle Infrastruktur mithilfe Ansible und Terraform erstellt. +
 
 Falls das POC-Netzwerk nachgebaut werden will, kann das Ansible Playbook und das Terraform Script https://github.com/b401/nidhogg/poc-lan[hier] gefunden werden.
@@ -60,36 +60,36 @@ auftreten, Prozesse sich anders verhalten oder Geräte miteinander kommunizieren
 
 === Erkennung
 Die Erkennung soll anhand eines Algorithmus erfolgen. Dabei soll der Algorithmus mehrere Merkmale analysieren.
-Grundsätzlich ist die Frage zu klären, wie eine standardmässige Kill Chain aussieht und mit welchen Massnahmen welche Schritte erkennen könnte.
+Grundsätzlich ist die Frage zu klären, wie eine standardmässige Kill Chain aussieht und mit welchen Massnahmen welche Schritte erkannt werden könnten.
 
 <<<
 
 === Kill-Chain
-Eine Kill-Chain beschreibt wie ein Angreiffer normalerweise Zugang und Foothold in einem Netzwerk bekommt. +
+Eine Kill-Chain beschreibt wie ein Angreifer normalerweise Zugang und Foothold in einem Netzwerk bekommt. +
 Um einen klaren Überblick für die Möglichkeiten zu erhalten, wie eine Anomalie erkannt werden kann, wird auf das Mitre ATT&CK Framework zurückgegriffen, welche die einzelnen Phasen beschreibt.
 
 .https://attack.mitre.org/ - Killchain
 image::Intrusion_Kill_Chain_-_v2.png[https://attack.mitre.org/,align=center,Mitre]
 
-==== Reconnaissance
+==== Recon
 
 .**Beschreibung**
-In dieser Phase werden weitere Informationen über das Ziel beschaft. +
-Während dieser Phase, befindet sich der Angreiffer meist noch ausserhalb des zu angreifenden Netzwerkes. +
-Allerdings ist Reconnaissance eine wiederholende Phase, welche während des gesamten Angriffs vortbeständig durchgeführt wird.
+In dieser Phase werden weitere Informationen über das Ziel beschafft. +
+Während dieser Phase befindet sich der Angreifer meist noch ausserhalb des zu angreifenden Netzwerkes. +
+Allerdings ist Recon eine wiederholende Phase, welche während des gesamten Angriffs fortbeständig durchgeführt wird.
 
 .**Erkennung**
-Solange sich der Angreiffer ausserhalb des Netzwerkes befindet, gibt es nur eine limitierte Anzahl an Erkennungsmassnahmen. +
+Solange sich der Angreifer ausserhalb des Netzwerkes befindet, gibt es nur eine limitierte Anzahl an Erkennungsmassnahmen. +
 Da der Scope von Nidhogg eher auf eine interne Erkennung liegt, wird dies auch nicht weiter verfolgt. +
 
-Intern hingegen, wird anhand eines passiven/aktiven ARP-Request Scannings das Netzwerk nach neuen Hosts durchsucht. Sollte ein neuer Host entdeckt werden, wird der Administrator via Mail auf die neue MAC Adresse aufmerksam gemacht.
+Intern hingegen, wird anhand eines passiven/aktiven ARP-Request Scannings das Netzwerk nach neuen Hosts durchsucht. Sollte ein neuer Host entdeckt werden, wird der Administrator via Mail auf die neue MAC Adresse Aufmerksam gemacht.
 
 <<<
 
 ==== Weaponization
 
 .**Beschreibung**
-Der Angreiffer beschafft sich einen Exploit, welcher für die gefunden Schwachstelle in Phase I zugeschnitten ist. Die Art des Exploits spielt dabei keine Rolle.
+Der Angreifer beschafft sich einen Exploit, welcher für die gefunden Schwachstelle in Phase I zugeschnitten ist. Die Art des Exploits spielt dabei keine Rolle.
 
 .**Erkennung**
 Es gibt mehrere Möglichkeiten einen Exploit zu erkennen. Ein relativ neuer Ansatz ist mit sogenannten https://virustotal.github.io/yara/[YARA] Regeln. +
@@ -103,7 +103,7 @@ Für Nidhogg wurde bewusst entschieden, auf eine zu intrusiven Netzwerkerkennung
 .**Beschreibung**
 Der Exploit aus Phase II wird zum Ziel übermittelt. (Beispielsweise via E-Mail, Website etc.)
 Diese Phase ist einer der Keypunkte, einen Angriff erfolgreich zu verhindern. +
-Da die Phasen I und II sich ausserhalb des eigenen Netzwerkes befindet, besteht kein Kontakt mit dem Angreiffer. Ab Phase III wird die Kommunikation mit mindestens einem Teil der Organisation aufgenommen.
+Da die Phasen I und II sich ausserhalb des eigenen Netzwerkes befindet, besteht kein Kontakt mit dem Angreifer. Ab Phase III wird die Kommunikation mit mindestens einem Teil der Organisation aufgenommen.
 
 .**Erkennung**
 Da die Kommunikation bewusst nicht überwacht wird, besteht hier keine Erkennungschance.
@@ -118,7 +118,7 @@ INPORTANT: Die Kommunikation und Host Überwachung wird auf Splunk + PRTG ausgel
 Malware wird ausgeführt und folgt der eingebauten Logik ab.
 
 .**Erkennung**
-Angriffe welche gezielt durchgeführt werden, setzen meist auf einen der folgende vorgehensweisen:
+Angriffe welche gezielt durchgeführt werden, setzen meist auf einen der folgende Vorgehensweisen:
 
 1. E-Mail Attachement
 2. Dropper
@@ -142,11 +142,11 @@ CAUTION: Dropper + Reverse Shell können leider nicht erkannt werden.
 
 <<<
 
-==== Installation
+==== Installation (Control + Execute)
 
 .**Beschreibung**
 Zusätzlicher Backdoor wird auf dem Zielsystem installiert (foothold). +
-Dies ermöglicht dem Angreiffer neue Verbindungen und weitere Kommandos der Malware zu senden.
+Dies ermöglicht dem Angreifer neue Verbindungen um weitere Kommandos der Malware zu senden.
 
 .**Erkennung**
 Es gibt viele möglichkeiten wie man ein Backdoor einrichten kann. Nidhogg soll die Möglichkeit haben, mindestens eine davon zu erkennen.
@@ -161,18 +161,18 @@ Es gibt viele möglichkeiten wie man ein Backdoor einrichten kann. Nidhogg soll 
 | CnC Server | -
 |===
 
-==== Command and Control
+==== Command and Control (Control + Execute)
 
 .**Beschreibung**
-CnC Server sendet Malware neue Instruktionen und ermöglicht dem Angreiffer, Informationen aus dem Netzwerk zu ziehen.
+CnC Server sendet Malware neue Instruktionen und ermöglicht dem Angreifer, Informationen aus dem Netzwerk zu ziehen.
 
 .**Erkennung**
 Siehe Phase "Installation"
 
-==== Actions on Objective
+==== Actions on Objective (Maintain)
 .**Beschreibung**
-Schritte zur Erfüllung des Ziels des Angreiffers werden durchgeführt. +
-Dies kann von Vernichtung von Daten beinahlten (selten) bis hin zu Datendiebstahl.
+Schritte zur Erfüllung des Ziels des Angreifers werden durchgeführt. +
+Dies kann von Vernichtung von Daten beinhalten (selten) bis hin zu Datendiebstahl.
 
 .**Erkennung**
 Grundsätzlich kann anhand der PRTG Auswertungen erkannt werden, ob zusätzliche Daten zu ungewöhnlichen Zeiten versendet werden.
@@ -200,7 +200,7 @@ Beispiel:
 New device found: {IP} {MAC}
 
 ==== Incident
-Anomalien welche auf lateral movement hinweisen könnten.
+Anomalien welche auf lateral movement hinweisen könnten. +
 Beispiel:
 [WARNING]
 New Port: {PORT} on {IP}
@@ -208,15 +208,15 @@ New Port: {PORT} on {IP}
 <<<
 
 === Algorithmen
-Für die Anomalie Erkennung wird auf mehrere Algorithmen zurückgegriffen welche im Hintergrund laufen sollen.
+Für die Anomalie Erkennung wird auf mehrere Algorithmen zurückgegriffen, welche im Hintergrund laufen sollen.
 
 ==== New Host
-Neue Hosts können auf einen Angreiffer hindeuten, welcher einen freien Netzwerkport gefunden hat. +
+Neue Hosts können auf einen Angreifer hindeuten, welcher einen freien Netzwerkport gefunden hat. +
 Leider ist diese Variante für grössere Netzwerke, nicht einfach maintable, da die Anzahl Hosts massiv höher ist. +
 
 Nidhogg soll in der lage sein, Administratoren über neue Hosts innerhalb eines definierten Netzwerkabschnitts zu informieren. +
 
-Somit kann die visibility massiv erhöht werden, welcher Administratoren einfacheren durchblick über die Netzwerkinfrastruktur erbringt. +
+Somit kann die visibility massiv erhöht werden, welcher Administratoren einfacheren Durchblick über die Netzwerkinfrastruktur erbringt. +
 Da im POC Netzwerk die Hostanzahl begrenzt ist, wird auf eine PDO Verbindung verzichtet.
 
 {nbsp} +
@@ -243,7 +243,7 @@ Die Checks sollen auf Reaktion eines anderen Alarms getätigt werden und somit d
 <<<
 
 ==== PRTG Meldung
-PRTG besitzt die möglichkeit, über sogenannte Notification Gruppen, Nachrichten an einen HTTP-Endpoint zu senden. +
+PRTG besitzt die Möglichkeit, über sogenannte Notification Gruppen, Nachrichten an einen HTTP-Endpoint zu senden. +
 Nidhogg übernimmt hier eine passive Rolle und wartet auf calls an den REST-Endpoint. +
 
 Die ermöglicht es, nicht nur für PRTG verfügbar zu sein, sondern könnte auch via Icinga oder andere NMS angesprochen werden.
@@ -265,7 +265,7 @@ Bestehend aus folgenden Services:
 - NGINX (DVWA)
 - Nidhogg
 
-Wird eine kleine Infrastruktur simuliert, welche leicht anzugreiffen ist.
+Wird eine kleine Infrastruktur simuliert, welche leicht anzugreifen ist.
 
 .Netzwerkdiagram
 image::netzwerk_diagram.png[align=center]
@@ -276,7 +276,7 @@ Load wird mithilfe https://nmap.org/nping/[Nping] generiert. +
 <<<
 
 == Applikation
-Nidhogg soll als Anlaufstelle für Anomalieerkennungen dienen. +
+Nidhogg soll als Anlaufstelle für Anomalie Erkennungen dienen. +
 Anhand diversen Merkmalen, soll erkannt werden, ob eine gemeldete Abweichung sich um eine Anomalie handelt welche genauer untersucht werden soll, oder aber um eine Abweichung, welche nicht weiterverfolgt werden muss.
 
 Zugegriffen wird dabei auf folgende Möglichkeiten mit den Umsystemen zu kommunizieren.
@@ -291,7 +291,7 @@ Es wird versucht den Code möglichst low-level zu halten um die Performance der 
 
 === Technology
 Nidhogg wird in Rust geschrieben. Dies ermöglicht es, sicheren Quellcode zu schreiben ohne dabei Geschwindigkeit zu verlieren. +
-Von grossem belangen wird hierbei der Borrowchecker, lifetimes sowie das Secure Memory Management um Nidhogg möglichst erweiterbar und ressourcen schonend zu schreiben.
+Von grossem belangen wird hierbei der Borrowchecker, lifetimes sowie das Secure Memory Management um Nidhogg möglichst erweiterbar und Ressourcen schonend zu schreiben.
 
 <<<
 
@@ -300,8 +300,8 @@ Nidhogg wird in einer einfachen 3-Tier Architektur entwickelt. +
 Die einzelnen Layers beziehen sich auf die Abschnitte des Programms. +
 
 Als Datenlayer wurde entschieden SQLite zu verwenden. +
-Natürlich kann argumentiert werden, dass lieber mysql/maria db etc. verwendet werde sollte. +
-Allerdings besteht bereits ein Programm von welchem ich die Funktionalität wiederverwenden kann.
+Natürlich kann argumentiert werden, dass lieber mysql/maria db etc. verwendet werden sollte. +
+Allerdings besteht bereits ein Programm, von welchem ich die Funktionalität wiederverwenden kann.
 
 .**First Tier**
 Webinterface
@@ -334,7 +334,7 @@ Allerdings kann bereits auf einige Abhängigkeiten eingegangen werden, welche be
 
 === Installation
 Um die Installation möglichst einfach zu halten, soll Nidhogg einfach über CLI installiert werden können. +
-Unter Linux wird dies mithilfe des .deb Formates zustandegebracht. +
+Unter Linux wird dies mithilfe des .deb Formates zustande gebracht. +
 Windows Systeme werden eine portable Binary erhalten. +
 
 Die komplette Installationsdokumentation wird in eigenem Dokument mitgeliefert.
@@ -376,15 +376,15 @@ include::src/portspecs.yml[]
 Der komplette Konfigurationsumfang wird in eigenem Dokument mitgeliefert.
 
 == Controlling
-Die Vollumfänglichkeit der gesetzten Ziele wird innehalb dieses Kapitels getestet und angeschaut. +
+Die vollumfänglichkeit der gesetzten Ziele wird innerhalb dieses Kapitels getestet und angeschaut. +
 Tests werden innerhalb des neu definierten POC-Netzwerks in einer kontrollierten Umgebung durchgeführt.
 
-Test und Controlling wird in einem eigenem Dokument mitgeliefert.
+Test und Controlling wird in einem zusätzlichen Dokument mitgeliefert.
 
 
 == Kosten
-Die Kosten belaufen sich auf die aufgewendete Arbeistzeit. +
-Da die Entwicklung mit OpenSource Modulen in einer Sprache welche, unter MIT Lizenziert, entwickelt wurde, steht es frei die Applikation für nicht kommerzielle zwecke zu verwenden. +
+Die Kosten belaufen sich auf die aufgewendete Arbeitszeit. +
+Da die Entwicklung mit Open-Source Modulen in einer Sprache welche, unter MIT Lizenziert, entwickelt wurde, steht es frei die Applikation für nicht kommerzielle Zwecke zu verwenden. +
 
 Da das POC-Netzwerk relativ klein gehalten wurde, entstehen auch keine Kosten in Sachen Log-Collector bzw. NMS.
 
