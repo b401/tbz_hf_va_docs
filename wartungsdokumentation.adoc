@@ -1,0 +1,46 @@
+= Nidhogg Konfiguration/Wartung
+
+== Info
+Nidhogg ist ein Netzwerkanomalien detection tool. +
+Da es keine aktive Aufzeichnungen des Netzwerkverkehrs macht und auch nur indirekt mit den Hosts kommuniziert, benötigen die Umsysteme einige Konfigrautionen.
+
+== Konfiguration
+
+=== PRTG
+Die Kommunikation zwischen PRTG und Nidhogg geschieht auf einer Einwegverbindung via HTTP(s). +
+Um Sensor Meldungen an Nidhogg zu melden, wird ein sogenanntes Notificationtemplate benötigt.
+
+image::notification.png[notification,align=center]
+
+Bei der HTTP Action muss folgende URL eingegeben werden:
+
+image::action.ong[HTTP Action,align=center]
+
+.Erklärung
+- %host - Hostname auf welchen der Sensor alarm geschlagen hat.
+- %sensor - Name des Sensors
+- %status - Up/Down
+
+Summarize kann deaktiviert werden. +
+Alle anderen Einstellungen können selbst definiert werden.
+
+
+Nun kann auf den einzelnen Sensoren Nidhogg als notification Endpoint angegeben werden.
+
+=== SPLUNK
+Splunk benötigt keine weitere Konfiguration um mit Nidhogg zu kommunizieren.
+
+=== SNMP
+Die Kommunikation geschieht über SNMPv2. +
+Daher sollte ein sicheres Read-Community Passwort gesetzt sein.
+
+Write-Community wird nicht genutzt.
+
+== Wartung
+
+.Log cleanup
+Um die Nidhogg logs zu leeren reicht es folgenden Befehl durchzuführen:
+
+```
+sudo rm /etc/nidhogg_db
+```

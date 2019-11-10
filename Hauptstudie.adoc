@@ -256,7 +256,9 @@ image::prtg_change.png[align=center,width=250px]
 
 <<<
 
-=== Netzwerk
+=== Baseline
+
+==== Netzwerk
 Das POC-Netzwerk wird bewusst etwas kleiner gehalten. +
 Bestehend aus folgenden Services:
 
@@ -264,14 +266,37 @@ Bestehend aus folgenden Services:
 - Splunk
 - NGINX (DVWA)
 - Nidhogg
+- Switch (Zyxel GS1910)
 
 Wird eine kleine Infrastruktur simuliert, welche leicht anzugreifen ist.
 
 .Netzwerkdiagram
 image::netzwerk_diagram.png[align=center]
 
-=== Load
-Load wird mithilfe https://nmap.org/nping/[Nping] generiert. +
+==== Traffik
+Netzwerktraffik wird mithilfe https://nmap.org/nping/[Nping] generiert. +
+
+==== Portmatrix
+
+.Ports
+- 161 <> SNMP (Abfrage des Netzwerkstandes)
+- 22 <> SSH (Monitoring)
+- 8089 <> Splunk API
+- 9997 <> Splunk forwarding
+
+.Portmatrix
+[align=center,grid=none]
+|=====
+| **Host** | **PRTG** | **Splunk** | **NGINX** | **Nidhogg** | **Switch**
+| **PRTG** | - | - | n/a | n/a | n/a
+| **Splunk**| 22,9997 | - | n/a | 8089 | n/a
+| **NGINX** | 22,443 | - | n/a | n/a | n/a
+| **Nidhogg** | 22,443 | n/a | n/a | - | 161
+| **Switch** | 161 | n/a | n/a | n/a | -
+|=====
+
+Da ein grosser Teil der Überwachung auf Layer 2+3 durchgeführt wird, sind diese Teile in der Portmatrix nicht ersichtlich.
+
 
 <<<
 
