@@ -6,6 +6,7 @@ This is due the nmap scanning parameter and arp scanning mechanism. +
 Ideally you're using the already created docker, to mitigate some of the security concerns, not all though :(.
 
 == Requirements
+
 .Linux
 - libpcap0.8
 - nmap
@@ -16,8 +17,10 @@ WARNING: If you're running Ubuntu chances are high that you'll need to create a 
 ``ln -s /usr/lib/x86_64-linux-gnu/libpcap.so.1.9.1 /usr/lib/x86_64-linux-gnu/libpcap.so.1``
 
 .Windows
+Docker
 
 == Installation
+
 .From source
 1. Clone repository or download source
 2. Build nidhogg ``cargo build --release``
@@ -29,13 +32,18 @@ WARNING: If you're running Ubuntu chances are high that you'll need to create a 
 3. Configure application (/etc/nidhogg/)
 
 .Binary (Windows)
-1. Download latest .exe
+See Docker
+
+.Docker
+```
+docker run -it --net=host --privileged -v mappings.xml:/etc/nidhogg/mappings.xml -v config.yml:/etc/nidhogg/config.yml -v portspecs.yml:/etc/nidhogg/portspecs.yml b401/nidhogg:latest
+```
 
 == Configuration
+
 WARNING: All configflags are mandatory
 
 See examples for more indepth settings.
-
 
 .config.yml
 Main configuration file. +
