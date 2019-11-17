@@ -1,0 +1,28 @@
+mail:
+    server: "smtp.gmail.com"
+    username: "user@gmail.com"
+    password: ""
+    email: "user@i-401.xyz"
+
+splunk:
+    server: "splunk:8089"
+    username: ""
+    password: ""
+    interval: 500
+
+snmp:
+    server: "127.0.0.1"
+    community: "my_comm"
+    oid: "1.3.6.100.1.2.3.5.1.1.0"
+
+portscan:
+    portspec: "/etc/nidhogg/portspecs.yml"
+    mappings: "/etc/nidhogg/mappings.xml"
+    timeout: 500
+
+arpscan:
+    interface: "eth0"
+    db: "/etc/nidhogg/arp.db"
+    timeout: 500
+    mac:
+      - "00:17:88:28:9f:ca"

@@ -46,7 +46,7 @@ Innerhalb dieses Dokuments wird die Applikation fortlaufend mit ihrem Projektnam
 Aufgrund eines Hardwarefailures muss leider auf die bestehende Infrastruktur verzichtet werden. +
 Daher wurde eine virtuelle Infrastruktur mithilfe Ansible und Terraform erstellt. +
 
-Falls das POC-Netzwerk nachgebaut werden will, kann das Ansible Playbook und das Terraform Script https://github.com/b401/nidhogg/poc-lan[hier] gefunden werden.
+Falls das POC-Netzwerk nachgebaut werden will, kann das Ansible Playbook und das Terraform Script https://github.com/b401/tbz_hf_va_poc-lan[hier] gefunden werden.
 
 == Anomalie
 
@@ -225,7 +225,7 @@ Da im POC Netzwerk die Hostanzahl begrenzt ist, wird auf eine PDO Verbindung ver
 .ARP-Change
 image::arp_change.png[align=center]
 
-IMPORTANT: Die Geschwindigkeit der Erkennung ist netzwerkgrössen abhängig.
+IMPORTANT: Die Geschwindigkeit der Erkennung ist netzwerkgrössen + Last abhängig.
 
 <<<
 
@@ -376,7 +376,7 @@ Ein erster Draft ist bereits verfügbar:
 .**config_draft.yml**
 [source,yaml]
 ----
-include::src/config.yml[]
+include::src/config_beta.yml[]
 ----
 
 <<<
@@ -386,7 +386,7 @@ Da ausserhalb der Hauptkonfiguration, ebenfalls noch Einstellungen für die wied
 
 [source,xml]
 ----
-include::src/mappings.xml[]
+include::src/mappings_beta.xml[]
 ----
 
 
@@ -395,7 +395,7 @@ Die Portspec Datei wird dafür genutzt, Hosts aus dem Mappings.xml, mit den Eins
 
 [source,yaml]
 ----
-include::src/portspecs.yml[]
+include::src/portspecs_beta.yml[]
 ----
 
 Der komplette Konfigurationsumfang wird in eigenem Dokument mitgeliefert.
@@ -503,17 +503,3 @@ Phasen eines Angriffs
 <<<
 
 == Anhang
-<<<
-
-=== Installationsdokumentation
-TODO
-//include::installationsdokumentation.adoc[]
-
-=== Wartungsdokumentation
-TODO
-//include::wartungsdokumentation.adoc[]
-
-=== Testing & Controlling
-TODO
-//include::testing.adoc[]
-//include::controlling.adoc[]

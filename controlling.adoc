@@ -1,0 +1,425 @@
+= Nidhogg: Controlling
+Ives Schneider <ives.schneider@i-401.xyz>
+:doctype: pdf
+:author: Ives Schneider
+:subtitle: Controlling
+:ntitle: Nidhogg: {subtitle}
+:imagesdir: ./images
+:class: ITSE17a
+:pdf-stylesdir: ./resources/themes
+:pdf-fontsdir: ./resources/fonts
+:pdf-style: tbz
+:allow-uri-read:
+:sectnums:
+:toc:
+:toc-title: Index
+:title-page:
+
+== Info
+Dieses Dokument beschreibt das Controlling welches währedn der Arbeit eingesetzt wurde. +
+Es beinhaltet das Zeitmanagement sowie die Testcases für das entwickelte Programm.
+
+
+<<<
+
+== Zeitplan
+
+<<<
+
+== Meilensteine
+
+.KW36 | Projektantrag
+Der erste Meilenstein konnte ohne Probleme eingehalten werden. +
+Nach einigen Verbesserungen wurde der Projektantrag am 13.09.2019 angenommen.
+
+.KW38 | Evaluation
+Die Produktevaluation konnte bereits etwas früher abgeschlossen werden. +
+Dies konnte aufgrund bereits vorhandenem Wissen der zu evaluierenden Software geschehen.
+
+.KW45 | Issues
+Die Issues (Aufbau des Programms), nahm mehr Zeit in Anspruch als anfangs geplant. +
+Allerdings ist dies nicht weiter schlimm, da beim gekenzeichneten Meilensteins, bereits ein POC des Tools vorhanden war.
+
+.KW44 | Einbindung
+Der Meilenstein verschob sich ebenfalls um ein paar Tage, dies war aufgrund einer nicht Komplett fertigen Software Konfiguration, welche danach fertiggestellt wurde.
+
+.KW47 | Abschluss
+Obwohl einige der anderen Meilensteine sich etwas verschoben hatten, konnte der Abschluss Termingerecht eingehalten werden.
+
+<<<
+
+== Testing
+
+=== Case #1
+
+{nbsp} +
+{nbsp} +
+
+[cols='1,3',grid="None",frame="None"]
+|=====
+| *Title*
+| Start & Listen
+| *Beschreibung*
+| Nidhogg startet und hört auf den gewúnschten Port (8080)
+| *Config*
+a| ```
+webserver:
+    ip: "0.0.0.0"
+    port: 8080
+```
+|   *Eingabe*
+a|```
+./nidhogg
+```
+|   *Check*
+a|```
+curl localhost:8080
+```
+|   *Soll*
+| Request antwortet mit 200
+|   *Ist*
+| ```
+HTTP/1.1 200 OK
+content-length: 1994
+content-type: text/html
+date: wed, 13 Nov 2019 17:20:53 GMT
+```
+|   *Erfolgreich*
+| Ja
+|=====
+
+<<<
+
+=== Case #2
+
+{nbsp} +
+{nbsp} +
+
+[cols='1,3',grid="None",frame="None"]
+|=====
+| *Title*
+| Portscan
+| *Beschreibung*
+a| Der eigene Computer wird als zu überwachende Maschine eingetragen. +
+Danach wird ein Port geöffnet, welcher als geschlossen angegeben ist. +
+Hierbei wird die automatische Benachrichtigung getestet. d.H. der Portscan sollte nach angegebener Zeit automatisch durchgeführt werden.
+| *Config*
+a| ```
+portspecs:
+    - name: yorha
+        - id: 8081
+          state: closed
+```
+|   *Eingabe*
+| n/a
+|   *Check*
+| Automatische Mail wird abgewartet.
+|   *Soll*
+a|```
+Time: [Nov 17 17:15:49]
+
+[Scan]
+Pass: 0
+Fail: 1
+Analysis:
+IP: 10.0.0.25
+Result:
+[ALERT] Port: 8081 - State: OpenButClosed
+```
+|   *Ist*
+a| ```
+Time: [Nov 17 17:15:49]
+
+[Scan]
+Pass: 0
+Fail: 1
+Analysis:
+IP: 10.0.0.25
+Result:
+[ALERT] Port: 8081 - State: OpenButClosed
+```
+|   *Erfolgreich*
+| Ja
+|=====
+
+<<<
+
+=== Case #3
+
+{nbsp} +
+{nbsp} +
+
+[cols='1,3',grid="None",frame="None"]
+|=====
+| *Title*
+| Arpscan
+| *Beschreibung*
+a| Es wird während dem Betrieb eine zusätzliche VM im Netzwerk aufgeschalten. +
+Nach dem hochfahren, sollte die IP einen Broadcast ARP-Request durchführen um den DHCP Server zu finden.
+| *Config*
+a| ```
+arpscan:
+    enable: trye
+    interface: "eth0"
+    db: "/etc/nidhogg/arp.db"
+    timeout: 50
+    mac:
+     - 00:00:00:00:00
+```
+|   *Eingabe*
+| n/a
+|   *Check*
+| Automatische Mail wird abgewartet.
+|   *Soll*
+a|```
+[Time] New device found: 00:50:56:93:58:5c
+```
+|   *Ist*
+a| ```
+[[Nov 17 17:20:01]] New device found: 00:50:56:93:58:5c
+```
+|   *Erfolgreich*
+| Ja
+|=====
+
+<<<
+
+=== Case #4
+
+{nbsp} +
+{nbsp} +
+
+[cols='1,3',grid="None",frame="None"]
+|=====
+| *Title*
+| Web - Authentication
+| *Beschreibung*
+a| Das Webinterface muss eine Authentifizierung besitzen, welche nach einem erfolgreichem Login den Zugang zu weiteren Funktionalitäten bietet. =
+Hier wird getestet, ob die Informationen welche in config.yml angegeben sind, respektiert werden.
+| *Config*
+a| ```
+webserver:
+    enable: true
+    username: "admin"
+    password: "hunter2"
+    address: "0.0.0.0"
+    port: "8080"
+```
+|   *Eingabe*
+a|
+    Username: admin
+    Password: admin
+    -
+    Username: admin123
+    Username: blah
+    -
+    Username: 1=1 or 1;--
+    Password: 1=1 or 1;--
+|   *Check*
+| Manueller check
+|   *Soll*
+| Login sollte nicht erfolgreich sein
+|   *Ist*
+| Es wird kein Session-Token erstellt.
+|   *Erfolgreich*
+| Ja
+|=====
+
+<<<
+
+=== Case #5
+
+{nbsp} +
+{nbsp} +
+
+[cols='1,3',grid="None",frame="None"]
+|=====
+| *Title*
+| Deaktivierung von Features
+| *Beschreibung*
+a| In der config.yml wird der Arp-Scan deaktiviert. +
+Der Arpscan sowie die Url /arp sollte nun nicht mehr verfügbar sein.
+| *Config*
+a| ```
+arpscan:
+    enable: false
+    interface: "wlp58s0"
+    db: "/etc/nidhogg/arp.db"
+    timeout: 500
+    mac:
+        - "00:00:00:00:00:00"
+```
+|   *Eingabe*
+| n/a
+|   *Check*
+a| Es wird eine zusätzliche Maschine hochgefahren.
+Manueller check auf /arp und timeout abwarten.
+|   *Soll*
+| Es sollte kein Alert-Mail versendet werden.
+|   *Ist*
+| Es wird kein Arp-alert versendet.
+|   *Erfolgreich*
+| Ja
+|=====
+
+
+<<<
+
+=== Case #6
+
+{nbsp} +
+{nbsp} +
+
+[cols='1,3',grid="None",frame="None"]
+|=====
+| *Title*
+| Portscan: Unmögliche Konfiguration
+| *Beschreibung*
+a| In der Portspec wird angegeben, dass ein Port sowohl offen wie auch geschlossen sein muss.
+| *Config*
+a| ```
+portspecs:
+    - name: artoria
+      ports:
+        - id: 22
+          state: open
+        - id: 22
+          state: closed
+```
+|   *Eingabe*
+| ./nidhogg
+|   *Check*
+| n/a
+|   *Soll*
+| Es sollte die erste Value genommen werden.
+|   *Ist*
+| Nidhogg meldet einen Fehler sobald SSHd nicht mehr aktiv ist.
+|   *Erfolgreich*
+| Ja
+|=====
+
+<<<
+
+=== Case #7
+
+{nbsp} +
+{nbsp} +
+
+[cols='1,3',grid="None",frame="None"]
+|=====
+| *Title*
+| Portscan: Unbekannter Port wird geöffnet
+| *Beschreibung*
+a| Ein zusätzlicher Pora (30718)t wird mit netcat geöffnet und simmuliert eine binding shell.
+| *Config*
+a| ```
+portspecs:
+    - name: artoria
+      ports:
+        - id: 22
+          state: open
+```
+|   *Eingabe*
+| ./nidhogg
+|   *Check*
+| Das Webinterview /port wird manuell aufgerufen & die automatische Mail wird abgewartet.
+|   *Soll*
+| nidhogg sollte den unbekannte Port melden.
+|   *Ist*
+a|
+10.0.0.36
+    - Port: 30718
+    - State: Open
+---
+Time: [Nov 17 16:58:41]
+
+[Scan]
+Pass: 0
+Fail: 1
+Analysis:
+IP: 10.0.0.36
+Result:
+[ALERT] Port: 30718 - State: ClosedButOpen
+|   *Erfolgreich*
+| Ja
+|=====
+
+<<<
+
+=== Case #8
+
+{nbsp} +
+{nbsp} +
+
+[cols='1,3',grid="None",frame="None"]
+|=====
+| *Title*
+| PRTG
+| *Beschreibung*
+a| PRTG wird eine Meldungen senden, dass sich ein port geändert hat. +
+Dadurch wird ein Mail aktiviert, welches die letzte Nachricht von dem Host in Splunk einbetten sollte.
+| *Config*
+a|
+Es wird ein notification Trigger auf nginx gelegt. +
+Sobald der State sich ändern sollte, wird wird die URL:
+nidhogg.hosts.i-401.xyz mit den Sensor informationen via GET aufgerufen.
+|   *Eingabe*
+a|```
+systemctl stop nginx
+```
+|   *Check*
+| Nginx wird manuell gestoppt.
+|   *Soll*
+| nidhogg sollte ein Mail mit Portscan inhalt senden.
+|   *Ist*
+a|
+Host: nginx changed sensor: HTTP to state: UP
+Please investigate!
+
+[Scan]
+Pass: 0
+Fail: 1
+Analysis:
+IP: 10.0.0.201
+Result:
+[ALERT] Port: 22 - State: ClosedButOpen
+|   *Erfolgreich*
+| Ja
+|=====
+
+<<<
+
+=== Case #9
+
+{nbsp} +
+{nbsp} +
+
+[cols='1,3',grid="None",frame="None"]
+|=====
+| *Title*
+| Splunk
+| *Beschreibung*
+a| Der Output der letzten Splunk info wird via Mail gesendet, sobald PRTG einen Host spezifischen Sensor meldet.
+| *Config*
+a|
+Es wird ein notification Trigger auf nginx gelegt. +
+Sobald der State von Load sich ändern sollte, wird wird die URL:
+nidhogg.hosts.i-401.xyz mit den Sensor informationen via GET aufgerufen.
+|   *Eingabe*
+a|```
+curl nidhogg.hosts.i-401.xyz:8080/sensor/nginx/load/up
+```
+|   *Check*
+| n/a
+|   *Soll*
+| nidhogg sollte ein Mail mit Splunk content senden.
+|   *Ist*
+a|
+Host: nginx changed sensor: Load to state: up
+Please investigate!
+
+Last Splunk messages:
+[2019-11-17 17:23:50.000 UTC] Nov 17 17:23:50 nginx sudo: pam_unix(sudo:session): session closed for user root
+|   *Erfolgreich*
+| Ja
+|=====
