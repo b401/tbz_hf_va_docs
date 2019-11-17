@@ -1,8 +1,30 @@
-= Nidhogg Konfiguration/Wartung
+= Nidhogg: Konfiguration / Wartung
+Ives Schneider <ives.schneider@i-401.xyz>
+:doctype: pdf
+:author: Ives Schneider
+:subtitle: Konfiguration / Wartung
+:ntitle: Nidhogg: {subtitle}
+:imagesdir: ./images
+:class: ITSE17a
+:pdf-stylesdir: ./resources/themes
+:pdf-fontsdir: ./resources/fonts
+:pdf-style: tbz
+:allow-uri-read:
+:sectnums:
+:toc:
+:toc-title: Index
+:title-page:
 
 == Info
 Nidhogg ist ein Netzwerkanomalien detection tool. +
-Da es keine aktive Aufzeichnungen des Netzwerkverkehrs macht und auch nur indirekt mit den Hosts kommuniziert, benötigen die Umsysteme einige Konfigrautionen.
+Da es keine aktive Aufzeichnungen des Netzwerkverkehrs macht und auch nur indirekt mit den Hosts kommuniziert, benötigen die Umsysteme einige Konfigurationen.
+
+.Requestsize
+Der Portscan generiert pro Host insgesamt 2005 Pakete (118254 Bytes). +
+Dies könnte zu problemen führen, je nach Anzahl überwachter Host. +
+
+IMPORTANT: Bitte im Hinterkopf bewahren
+
 
 == Konfiguration
 
@@ -10,11 +32,14 @@ Da es keine aktive Aufzeichnungen des Netzwerkverkehrs macht und auch nur indire
 Die Kommunikation zwischen PRTG und Nidhogg geschieht auf einer Einwegverbindung via HTTP(s). +
 Um Sensor Meldungen an Nidhogg zu melden, wird ein sogenanntes Notificationtemplate benötigt.
 
-image::notification.png[notification,align=center]
+image::notification.png[notification,width=400px,align=center]
+
+<<<
 
 Bei der HTTP Action muss folgende URL eingegeben werden:
 
-image::action.ong[HTTP Action,align=center]
+image::action.png[HTTP Action,width=800px,align=center]
+
 
 .Erklärung
 - %host - Hostname auf welchen der Sensor alarm geschlagen hat.
@@ -27,6 +52,9 @@ Alle anderen Einstellungen können selbst definiert werden.
 
 Nun kann auf den einzelnen Sensoren Nidhogg als notification Endpoint angegeben werden.
 
+=== Andere NMS
+Solange ein NMS die Möglichkeit besits, HTTP Requests an Endpunkte zu versenden, kann Nidhogg angeschlossen werden. +
+
 === SPLUNK
 Splunk benötigt keine weitere Konfiguration um mit Nidhogg zu kommunizieren.
 
@@ -36,11 +64,15 @@ Daher sollte ein sicheres Read-Community Passwort gesetzt sein.
 
 Write-Community wird nicht genutzt.
 
+<<<
+
 == Wartung
 
 .Log cleanup
 Um die Nidhogg logs zu leeren reicht es folgenden Befehl durchzuführen:
 
 ```
-sudo rm /etc/nidhogg_db
+sudo rm /etc/nidhogg/arp.db
 ```
+
+Weitere Wartungen werden nicht benötigt.

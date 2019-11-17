@@ -1,9 +1,24 @@
-= Nidhogg
+= Nidhogg: Installationsdokumentation
+Ives Schneider <ives.schneider@i-401.xyz>
+:doctype: pdf
+:author: Ives Schneider
+:subtitle: Installationsdokumentation
+:ntitle: Nidhogg: {subtitle}
+:imagesdir: ./images
+:class: ITSE17a
+:pdf-stylesdir: ./resources/themes
+:pdf-fontsdir: ./resources/fonts
+:pdf-style: tbz
+:allow-uri-read:
+:sectnums:
+:toc:
+:toc-title: Index
+:title-page:
 
 == Info
 If you're planning to run nidhogg with it's scanning capability, you won't get around to sadly run it as root. (or with cap rights) +
 This is due the nmap scanning parameter and arp scanning mechanism. +
-Ideally you're using the already created docker, to mitigate some of the security concerns, not all though :(.
+Ideally you're using the already created docker, to mitigate some of the security concerns, not all though.
 
 == Requirements
 .Linux
@@ -22,34 +37,63 @@ WARNING: If you're running Ubuntu chances are high that you'll need to create a 
 1. Clone repository or download source
 2. Build nidhogg ``cargo build --release``
 3. Manually create config files (see example config.yml)
+4. Copy service file to  /etc/systemd/system
+5. Activate Unit ``systemctl enable nidhogg``
 
 .Binary (Ubuntu)
 1. Download latest .deb
 2. Install with dpkg ``dpkg -i xx.deb``
 3. Configure application (/etc/nidhogg/)
+4. Enable unit ``systemd enable nidhogg``
 
 .Binary (Windows)
-1. Download latest .exe
+Get the Docker image from: +
+https://hub.docker.com/r/b401/nidhogg
+
+.Docker
+https://hub.docker.com/r/b401/nidhogg
 
 == Configuration
 WARNING: All configflags are mandatory
 
 See examples for more indepth settings.
 
+=== Main configuration file
+Defines most configuration aspects of nidhogg. +
+All config flags are mandatory but every functionality can be disabled.
 
 .config.yml
-Main configuration file. +
+[source,yaml]
+----
+include::src/config.yml[]
+----
+
+=== Portscan configuration files
+Defines which target and which ports should be in a special state. +
+If a port is undefined, it will be ignored in the final report. +
+
+mappings.xml is used to bind a spec to a target.
+
+Special thanks to https://github.com/lukaspustina/nmap-analyze[nmap-analyze]
 
 .portspecs.yml
-Set ports to monitor
+[source,yaml]
+----
+include::src/portspecs.yml[]
+----
 
 .mappings.xml
-Map portspecs to hosts.
+[source,yaml]
+----
+include::src/mappings.xml[]
+----
 
-== Deinstallation
+== Uninstall
+Uninstalling is as easy as installing. +
+If you've installed nidhogg via .deb, just remove the deb with apt. +
 
 .Ubuntu / apt based
 ``apt remove nidhogg``
 
-.Compiled from source
+.Compiled from source / Binary
 ``rm -r /etc/nidhogg && rm /usr/bin/nidhogg``
