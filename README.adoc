@@ -1,0 +1,16 @@
+= TBZ HF VA Documents
+
+== Projekt
+Basierend auf dem Netzwerk der TBZ HF soll eine Lösung zur Anomalie Detection evaluiert werden und in einem POC aufgebaut und entsprechend dokumentiert werden (inkl. Betriebsdokumentationen).
+Die Lösung soll die Fähigkeit bieten, unautorisierte Aktivitäten im Netzwerk erkennen zu können.
+
+== Source
+Jeglicher Sourcecode basiert auf der MIT License und kann frei angepasst, genutzt und released werden.
+
+=== Nidhogg
+Den Sourcecode für nidhogg findet man unter https://github.com/b401/nidhogg[nidhogg].
+
+== Changes
+Aufgrund einiger Umstände, konnte im Netzwerk der TBZ HF die installation nicht vorgenommen werden. (Mehr dazu in der Hauptstudie). +
+Stattdessen wurde eine Virtuelle Umgebung erstellt erstellt. Siehe: https://github.com/b401/tbz_hf_va_poc-lan[Lan]. +
+Weitere Informationen zum restlichen Netzwerk, findet man in der Hauptstudie.
