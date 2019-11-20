@@ -12,5 +12,5 @@ Den Sourcecode für nidhogg findet man unter https://github.com/b401/nidhogg[nid
 
 == Changes
 Aufgrund einiger Umstände, konnte im Netzwerk der TBZ HF die installation nicht vorgenommen werden. (Mehr dazu in der Hauptstudie). +
-Stattdessen wurde eine Virtuelle Umgebung erstellt erstellt. Siehe: https://github.com/b401/tbz_hf_va_poc-lan[Lan]. +
+Stattdessen wurde eine virtuelle Umgebung erstellt erstellt. Siehe: https://github.com/b401/tbz_hf_va_poc-lan[Lan]. +
 Weitere Informationen zum restlichen Netzwerk, findet man in der Hauptstudie.
