@@ -23,6 +23,7 @@ In der Hauptstudie soll definiert werden, mit welcher Architektur und mit welche
 Zusätzlich wurde mithilfe des MITRE ATT&CK Frameworks ermittelt, wie und welche Angriffe normalerweise durchgeführt werden.
 
 .**Features**
+
 Anhand der Architektur bestehen folgende kontinuierlichen Möglichkeiten, Anomalien zu erkennen:
 
 - Erkennung neuer Hosts
@@ -31,9 +32,11 @@ Anhand der Architektur bestehen folgende kontinuierlichen Möglichkeiten, Anomal
 - Gezielte Überwachung von gewünschten Zielen
 
 .**Kosten**
+
 Da es sich um ein komplett Open-Source-Projekt handelt (minus Splunk+PRTG), entstehen ausser der aufgewendeten Arbeitszeit keine zusätzlichen Kosten.
 
 .**Projekt**
+
 Im Laufe der Hauptstudie wurde entschieden, die Testumgebung (POC-Lan) auf eine virtuelle Umgebung zu verschieben.
 Dies erspart zusätzlichen aufwand, die Hardwareumgebung nachträglich mit Splunk auszurüsten.
 
@@ -47,6 +50,10 @@ Aufgrund eines Hardwarefailures muss leider auf die bestehende Infrastruktur ver
 Daher wurde eine virtuelle Infrastruktur mithilfe Ansible und Terraform erstellt. +
 
 Falls das POC-Netzwerk nachgebaut werden will, kann das Ansible Playbook und das Terraform Script https://github.com/b401/tbz_hf_va_poc-lan[hier] gefunden werden.
+
+=== Windows Binary
+Aufgrund einer Modul Inkompatibilität musste auf eine native Windows Unterstützung verzichtet werden. +
+Stattdessen wird nun auf ein Docker Image verwiesen, um nidhogg auch auf Windows nutzten zu können.
 
 == Anomalie
 
