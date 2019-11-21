@@ -1,0 +1,74 @@
+= Nidhogg: Betriebsdokumentation
+Ives Schneider <ives.schneider@i-401.xyz>
+:doctype: pdf
+:author: Ives Schneider
+:subtitle: Betriebsdokumentation
+:ntitle: Nidhogg: {subtitle}
+:imagesdir: ./images
+:class: ITSE17a
+:pdf-stylesdir: ./resources/themes
+:pdf-fontsdir: ./resources/fonts
+:pdf-style: tbz
+:allow-uri-read:
+:sectnums:
+:toc:
+:toc-title: Index
+:title-page:
+
+== Login
+
+Login kann direkt auf der Weboberfläche durchgeführt werden. +
+Username / Passwort entsprechen der Konfiguration unter ``/etc/nidhogg/config.yml``.
+
+image::login.png["Login",align="center"]
+
+Für das Sessionmanagement wird ein Session-Cookie gesetzt, welcher bei jedem request überprüft wird.
+
+== Scanresult
+
+Sobald ein GET-Request zu /port gemacht wird, wird im Hintergrund ein Portscan auf die Geräte welcher unter ``mappings.xml/portspecs.yml`` definiert sind. +
+Falls eine Abweichung mit den definierten Spezifikationen gefunden werden sollte, wird hier die Information dargestellt.
+
+image::port.png["Nmap Scan",width="400px",align="center"]
+
+<<<
+
+== Arpscan
+
+Die aufgezeichneten ARP-Requests werden in der DB aufgezeichnet und können hier nachverfolgt werden.
+
+image::arpscan_new.png["Arpscan",width="300px",align="center"]
+
+
+Falls die Funktion deaktiviert sein sollte, wird hier eine Fehlermeldung angezeigt.
+
+image::arpfail.png["Arpfehler",width="300px",align="center"]
+
+Da die Netzwerkkarte im Promiscous Modus laufen muss, könnten eventuelle Einschränkungen duch die Virtualisierungsengine auftreten.
+
+<<<
+
+
+== Meldungen
+
+Falls aktiviert werden in den definierten intervalen Mails and die angegebene Adresse gesendet. +
+Diese Mails werden nur gesendet, falls Anomalien gefunden werden.
+
+=== Portscan
+
+Für jede Anomalie sendet nidhogg ein eigenes Mail.
+
+image::scanmeldung.png["Nmap Meldungen",width="400px",align="center"]
+
+=== Arpscan
+
+Der Arpscanner verhält sich gleich wie der Portscan und sendet direkt eine Mail, sobald ein neuer Host im Netz entdeckt werden würde.
+
+image::arpnotifyheader.png["Arpnotify Header", align="center"]
+
+image::arpnotify.png["Arpnotify", align="center"]
+
+
+== Logout
+
+Logout kann manuell durch den Aufruf von /logout gemacht werden.
